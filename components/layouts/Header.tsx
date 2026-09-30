@@ -79,7 +79,7 @@ export default function Header() {
             className="shrink-0 text-[#1769D2]"
           />
 
-          <span className="whitespace-nowrap text-[26px] font-extrabold leading-none tracking-[-1.1px] text-[#193D62] sm:text-[28px]">
+          <span className="whitespace-nowrap text-[26px] font-extrabold leading-none tracking-[-1.1px]  sm:text-[28px]">
             HealthCare<span className="text-[#1769D2]">360</span>
           </span>
         </Link>
@@ -95,7 +95,7 @@ export default function Header() {
             setMobileMenuOpen((prev) => !prev);
             setMoreOpen(false);
           }}
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#E2E8F0] text-[#193D62] transition hover:bg-[#F0F6FF] md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#E2E8F0] text-black transition hover:bg-[#F0F6FF] md:hidden"
         >
           {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
@@ -128,7 +128,7 @@ export default function Header() {
                 ${
                   isActive(link.href)
                     ? "text-[#1769D2]"
-                    : "text-[#4B5568] hover:text-[#1769D2]"
+                    : "text-black hover:text-[#1769D2]"
                 }
               `}
             >

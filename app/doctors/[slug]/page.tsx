@@ -206,7 +206,7 @@ export default function DoctorProfilePage() {
             <HeartPulse size={36} />
           </div>
 
-          <h1 className="mt-6 text-3xl font-bold text-[#183b60]">
+          <h1 className="mt-6 text-3xl font-bold text-black">
             Doctor Not Found
           </h1>
 
@@ -230,7 +230,7 @@ export default function DoctorProfilePage() {
   )}`;
 
   return (
-    <main className="min-h-screen bg-[#f3f8fc] text-[#183b60]">
+    <main className="min-h-screen bg-[#f3f8fc] text-black">
 
       {/* =====================================
           BREADCRUMB
@@ -258,7 +258,7 @@ export default function DoctorProfilePage() {
 
           <ChevronRight size={16} className="shrink-0 text-[#8ba0b8]" />
 
-          <span className="truncate text-[#183b60]">
+          <span className="truncate text-black">
             Doctor Profile
           </span>
         </div>
@@ -313,7 +313,7 @@ export default function DoctorProfilePage() {
                 {/* NAME */}
 
                 <div className="flex flex-wrap items-center gap-3">
-                  <h1 className="text-3xl font-bold leading-tight tracking-tight text-[#183b60] sm:text-4xl lg:text-[42px]">
+                  <h1 className="text-3xl font-bold leading-tight tracking-tight text-black sm:text-4xl lg:text-[42px]">
                     {doctor.name}
                   </h1>
 
@@ -368,7 +368,7 @@ export default function DoctorProfilePage() {
                     ))}
                   </div>
 
-                  <span className="text-base font-bold text-[#183b60]">
+                  <span className="text-base font-bold text-black">
                     {doctor.rating}
                   </span>
 
@@ -385,7 +385,7 @@ export default function DoctorProfilePage() {
                   </p>
 
                   <div className="mt-1 flex items-baseline gap-2">
-                    <span className="text-3xl font-bold text-[#183b60]">
+                    <span className="text-3xl font-bold text-black">
                       ₹{doctor.fee}
                     </span>
 
@@ -500,7 +500,7 @@ export default function DoctorProfilePage() {
 
                 {activeTab === "Overview" && (
                   <div>
-                    <h2 className="text-2xl font-bold text-[#183b60] sm:text-[28px]">
+                    <h2 className="text-2xl font-bold text-black sm:text-[28px]">
                       About {doctor.name}
                     </h2>
 
@@ -532,7 +532,7 @@ export default function DoctorProfilePage() {
                         </div>
 
                         <div>
-                          <p className="text-base font-bold text-[#183b60]">
+                          <p className="text-base font-bold text-black">
                             {doctor.experience}+ Years
                           </p>
 
@@ -548,7 +548,7 @@ export default function DoctorProfilePage() {
                         </div>
 
                         <div className="min-w-0">
-                          <p className="text-base font-bold text-[#183b60]">
+                          <p className="text-base font-bold text-black">
                             {doctor.qualification.split(",")[0]}
                           </p>
 
@@ -564,7 +564,7 @@ export default function DoctorProfilePage() {
                         </div>
 
                         <div>
-                          <p className="text-base font-bold text-[#183b60]">
+                          <p className="text-base font-bold text-black">
                             {doctor.patients}
                           </p>
 
@@ -578,7 +578,7 @@ export default function DoctorProfilePage() {
                     {/* SPECIALTIES */}
 
                     <div className="mt-8">
-                      <h3 className="text-xl font-bold text-[#183b60] sm:text-2xl">
+                      <h3 className="text-xl font-bold text-black sm:text-2xl">
                         Specialties &amp; Services
                       </h3>
 
@@ -600,7 +600,7 @@ export default function DoctorProfilePage() {
 
                 {activeTab === "Specialties" && (
                   <div>
-                    <h2 className="text-2xl font-bold text-[#183b60] sm:text-[28px]">
+                    <h2 className="text-2xl font-bold text-black sm:text-[28px]">
                       Specialties &amp; Services
                     </h2>
 
@@ -632,7 +632,7 @@ export default function DoctorProfilePage() {
 
                 {activeTab === "Reviews" && (
                   <div>
-                    <h2 className="text-2xl font-bold text-[#183b60] sm:text-[28px]">
+                    <h2 className="text-2xl font-bold text-black sm:text-[28px]">
                       Patient Reviews
                     </h2>
 
@@ -642,7 +642,7 @@ export default function DoctorProfilePage() {
 
                     <div className="mt-6 rounded-xl border border-[#e1eaf4] bg-[#fbfdff] p-6 sm:p-8">
                       <div className="flex flex-wrap items-center gap-5">
-                        <span className="text-5xl font-bold text-[#183b60]">
+                        <span className="text-5xl font-bold text-black">
                           {doctor.rating}
                         </span>
 
@@ -688,7 +688,7 @@ export default function DoctorProfilePage() {
 
                 {activeTab === "Clinic Info" && (
                   <div>
-                    <h2 className="text-2xl font-bold text-[#183b60] sm:text-[28px]">
+                    <h2 className="text-2xl font-bold text-black sm:text-[28px]">
                       Clinic Information
                     </h2>
 
@@ -699,7 +699,7 @@ export default function DoctorProfilePage() {
                         </div>
 
                         <div className="min-w-0">
-                          <h3 className="text-xl font-bold text-[#183b60]">
+                          <h3 className="text-xl font-bold text-black">
                             {doctor.clinic.name}
                           </h3>
 
@@ -758,7 +758,7 @@ export default function DoctorProfilePage() {
 
                 <div className="rounded-xl border border-[#dce6f2] bg-white p-5 sm:p-6">
 
-                  <h3 className="text-lg font-bold text-[#183b60]">
+                  <h3 className="text-lg font-bold text-black">
                     Clinic &amp; Hospital
                   </h3>
 
@@ -837,7 +837,7 @@ export default function DoctorProfilePage() {
                 <div className="rounded-xl border border-[#dce6f2] bg-white p-5 sm:p-6">
 
                   <div className="flex items-center justify-between gap-3">
-                    <h3 className="text-lg font-bold text-[#183b60]">
+                    <h3 className="text-lg font-bold text-black">
                       Consultation Hours
                     </h3>
 
@@ -939,7 +939,7 @@ export default function DoctorProfilePage() {
 
                 <h2
                   id="message-title"
-                  className="mt-4 text-2xl font-bold text-[#183b60] sm:text-3xl"
+                  className="mt-4 text-2xl font-bold text-black sm:text-3xl"
                 >
                   Message Doctor
                 </h2>
@@ -990,7 +990,7 @@ export default function DoctorProfilePage() {
                 required
                 rows={6}
                 placeholder="Write your message here..."
-                className="w-full resize-y rounded-xl border border-[#cbd8e8] bg-white p-4 text-base leading-7 text-[#183b60] outline-none placeholder:text-[#94a3b8] focus:border-[#0878d1] focus:ring-4 focus:ring-[#0878d1]/10"
+                className="w-full resize-y rounded-xl border border-[#cbd8e8] bg-white p-4 text-base leading-7 text-black outline-none placeholder:text-[#94a3b8] focus:border-[#0878d1] focus:ring-4 focus:ring-[#0878d1]/10"
               />
 
               <button

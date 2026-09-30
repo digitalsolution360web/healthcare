@@ -241,10 +241,10 @@ export default function DoctorsPage() {
         <div className="flex items-center gap-2.5">
           <SlidersHorizontal
             size={19}
-            className="text-[#0878d1]"
+            className="text-text-black"
           />
 
-          <h2 className="text-[16px] font-semibold text-[#183b60]">
+          <h2 className="text-[16px] font-semibold text-black">
             Filters
           </h2>
         </div>
@@ -262,7 +262,7 @@ export default function DoctorsPage() {
       <div className="border-b border-[#dce6f2] px-5 py-5">
         <label
           htmlFor="filter-location"
-          className="mb-3 block text-[15px] font-semibold text-[#183b60]"
+          className="mb-3 block text-[15px] font-semibold text-black"
         >
           Location
         </label>
@@ -290,7 +290,7 @@ export default function DoctorsPage() {
 
       {/* SPECIALTY FILTER */}
       <div className="border-b border-[#dce6f2] px-5 py-5">
-        <h3 className="mb-4 text-[15px] font-semibold text-[#183b60]">
+        <h3 className="mb-4 text-[15px] font-semibold text-black">
           Specialty
         </h3>
 
@@ -315,7 +315,7 @@ export default function DoctorsPage() {
 
       {/* EXPERIENCE FILTER */}
       <div className="px-5 py-5">
-        <h3 className="mb-4 text-[15px] font-semibold text-[#183b60]">
+        <h3 className="mb-4 text-[15px] font-semibold text-black">
           Experience
         </h3>
 
@@ -352,7 +352,7 @@ export default function DoctorsPage() {
   ========================================= */
 
   return (
-    <main className="min-h-screen bg-white text-[#183b60]">
+    <main className="min-h-screen bg-white text-black">
 
       {/* =====================================
           FIND DOCTORS HEADER
@@ -366,14 +366,14 @@ export default function DoctorsPage() {
             <Link
               href="/"
               aria-label="Home"
-              className="text-[#0878d1] transition-colors hover:text-[#104e9c]"
+              className="text-black transition-colors hover:text-[#104e9c]"
             >
               <Home size={17} fill="currentColor" />
             </Link>
 
             <span className="text-[#7b91aa]">/</span>
 
-            <span className="text-[#183b60]">
+            <span className="text-black">
               Doctors
             </span>
           </div>
@@ -381,7 +381,7 @@ export default function DoctorsPage() {
           {/* TITLE AND ICON */}
           <div className="flex items-center justify-between gap-5">
             <div>
-              <h1 className="text-[34px] font-extrabold leading-[1.2] tracking-[-1px] text-[#153653] sm:text-[40px] lg:text-[42px]">
+              <h1 className="text-[34px] font-extrabold leading-[1.2] tracking-[-1px] text-black sm:text-[40px] lg:text-[42px]">
                 Find Doctors
               </h1>
 
@@ -419,7 +419,7 @@ export default function DoctorsPage() {
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search doctor, specialty or name..."
                 aria-label="Search doctors"
-                className="h-full w-full min-w-0 bg-transparent text-[15px] font-medium text-[#183b60] outline-none placeholder:font-normal placeholder:text-[#71839c] sm:text-[16px]"
+                className="h-full w-full min-w-0 bg-transparent text-[15px] font-medium text-black outline-none placeholder:font-normal placeholder:text-[#71839c] sm:text-[16px]"
               />
 
               {search && (
@@ -427,7 +427,7 @@ export default function DoctorsPage() {
                   type="button"
                   onClick={() => setSearch("")}
                   aria-label="Clear search"
-                  className="shrink-0 text-[#71839c] transition hover:text-[#183b60]"
+                  className="shrink-0 text-[#71839c] transition hover:text-black"
                 >
                   <X size={18} />
                 </button>
@@ -484,7 +484,7 @@ export default function DoctorsPage() {
           <button
             type="button"
             onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
-            className="flex h-[48px] items-center justify-center gap-2 rounded-[9px] border border-[#dce6f2] bg-white text-[15px] font-medium text-[#183b60] lg:hidden"
+            className="flex h-[48px] items-center justify-center gap-2 rounded-[9px] border border-[#dce6f2] bg-white text-[15px] font-medium text-black lg:hidden"
           >
             <SlidersHorizontal
               size={18}
@@ -517,7 +517,7 @@ export default function DoctorsPage() {
             <div className="flex min-h-[68px] flex-wrap items-center justify-between gap-3 rounded-[11px] border border-[#dce6f2] bg-[#f8fafc] px-4 py-3 sm:px-5">
               <p className="text-[14px] text-[#53677f] sm:text-[15px]">
                 Showing{" "}
-                <span className="mx-1 font-bold text-[#183b60]">
+                <span className="mx-1 font-bold text-black">
                   {filteredDoctors.length}
                 </span>{" "}
                 doctors
@@ -526,7 +526,7 @@ export default function DoctorsPage() {
               <div className="flex items-center gap-3">
                 <label
                   htmlFor="sort-doctors"
-                  className="whitespace-nowrap text-[13px] font-medium text-[#183b60]"
+                  className="whitespace-nowrap text-[13px] font-medium text-black"
                 >
                   Sort by:
                 </label>
@@ -536,7 +536,7 @@ export default function DoctorsPage() {
                     id="sort-doctors"
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="h-[42px] min-w-[145px] appearance-none rounded-[8px] border border-[#cbd8e8] bg-white px-3 pr-9 text-[13px] text-[#183b60] outline-none transition focus:border-[#0878d1]"
+                    className="h-[42px] min-w-[145px] appearance-none rounded-[8px] border border-[#cbd8e8] bg-white px-3 pr-9 text-[13px] text-black  outline-none transition focus:border-[#0878d1]"
                   >
                     <option value="recommended">Recommended</option>
                     <option value="rating">Highest Rated</option>
@@ -585,7 +585,7 @@ export default function DoctorsPage() {
                       {/* NAME AND AVAILABILITY */}
                       <div className="flex flex-wrap items-start justify-between gap-3">
                         <div>
-                          <h2 className="text-[20px] font-bold leading-[28px] tracking-[-0.3px] text-[#183b60] sm:text-[21px]">
+                          <h2 className="text-[20px] font-bold leading-[28px] tracking-[-0.3px] text-black sm:text-[21px]">
                             {doctor.name}
                           </h2>
 
@@ -618,7 +618,7 @@ export default function DoctorsPage() {
                       {/* PROFILE LINK */}
                       <Link
                         href={`/doctors/${doctor.slug}`}
-                        className="group mt-[11px] inline-flex items-center gap-[7px] text-[14px] font-semibold text-[#0878d1] transition-colors hover:text-[#075ca5]"
+                        className="group mt-[11px] inline-flex items-center gap-[7px] text-[14px] font-semibold text-black transition-colors hover:text-[#075ca5]"
                       >
                         View Doctor Profile
 
@@ -643,7 +643,7 @@ export default function DoctorsPage() {
                         stroke="#fbbf24"
                       />
 
-                      <span className="text-[14px] font-bold text-[#183b60]">
+                      <span className="text-[14px] font-bold text-black">
                         {doctor.rating}
                       </span>
 
@@ -679,7 +679,7 @@ export default function DoctorsPage() {
                       </p>
 
                       <div className="mt-[4px] flex items-baseline gap-[6px]">
-                        <span className="text-[23px] font-bold text-[#183b60]">
+                        <span className="text-[23px] font-bold text-black">
                           ₹{doctor.fee}
                         </span>
 
@@ -693,19 +693,18 @@ export default function DoctorsPage() {
                     <div className="flex flex-wrap items-center gap-[10px]">
                       <Link
                         href={`/doctors/${doctor.slug}`}
-                        className="inline-flex h-[42px] items-center justify-center rounded-[9px] border border-[#0878d1] px-[19px] text-[13px] font-semibold text-[#0878d1] transition-colors hover:bg-[#eff7ff]"
+                        className="inline-flex h-[42px] items-center justify-center rounded-[9px] border border-[#0878d1] px-[19px] text-[13px] font-semibold text-black transition-colors hover:bg-[#eff7ff]"
                       >
                         View Profile
                       </Link>
 
                       <Link
-                        href={`/appointments/book?doctor=${doctor.slug}`}
-                        className="inline-flex h-[42px] items-center justify-center gap-[9px] rounded-[9px] bg-[#0878d1] px-[18px] text-[13px] font-semibold text-white transition-colors hover:bg-[#0667b5]"
-                      >
-                        Book Appointment
-
-                        <ArrowRight size={16} />
-                      </Link>
+  href={`/appointments/book?doctor=${doctor.slug}`}
+  className="inline-flex h-[42px] items-center justify-center gap-[9px] rounded-[9px] bg-[#0878d1] px-[18px] text-[13px] font-semibold text-white transition-colors hover:bg-[#0667b5]"
+>
+  Book Appointment
+  <ArrowRight size={16} />
+</Link>
                     </div>
                   </div>
                 </article>
@@ -714,11 +713,11 @@ export default function DoctorsPage() {
               {/* NO RESULTS */}
               {filteredDoctors.length === 0 && (
                 <div className="flex min-h-[300px] flex-col items-center justify-center rounded-[15px] border border-dashed border-[#cbd8e8] bg-[#f8fafc] px-5 text-center">
-                  <div className="flex h-[58px] w-[58px] items-center justify-center rounded-full bg-[#eaf2ff] text-[#0878d1]">
+                  <div className="flex h-[58px] w-[58px] items-center justify-center rounded-full bg-[#eaf2ff] text-black">
                     <Search size={25} />
                   </div>
 
-                  <h3 className="mt-5 text-[20px] font-semibold text-[#183b60]">
+                  <h3 className="mt-5 text-[20px] font-semibold text-black">
                     No doctors found
                   </h3>
 

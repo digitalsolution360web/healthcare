@@ -47,7 +47,7 @@ export default function Home()
 
   return (
     <>
-    <main className="relative min-h-screen overflow-hidden bg-[#eef7ff] font-sans text-[#183b60]">
+    <main className="relative min-h-screen overflow-hidden bg-[#eef7ff] font-sans text-black">
       {/* BACKGROUND DECORATIONS */}
       <div
         aria-hidden="true"
@@ -68,13 +68,13 @@ export default function Home()
             <div className="inline-flex h-[51px] items-center gap-[13px] rounded-full border-2 border-[#c2ddff] bg-white/80 px-[21px]">
               <span className="h-[13px] w-[13px] rounded-full bg-[#10b981]" />
 
-              <span className="text-[16px] font-medium tracking-[-0.2px] text-[#183b60] sm:text-[17px]">
+              <span className="text-[16px] font-medium tracking-[-0.2px] text-black  sm:text-[17px]">
                 Your Health, Our Priority
               </span>
             </div>
 
             {/* HEADING */}
-            <h1 className="mt-[27px] text-[43px] font-extrabold leading-[1.08] tracking-[-1.8px] text-[#183b60] sm:text-[54px] lg:text-[68px] lg:leading-[1.03] lg:tracking-[-2.2px]">
+            <h1 className="mt-[27px] text-black text-[43px] font-extrabold leading-[1.08] tracking-[-1.8px]  sm:text-[54px] lg:text-[68px] lg:leading-[1.03] lg:tracking-[-2.2px]">
               Find the Right
               <br />
 
@@ -97,7 +97,7 @@ export default function Home()
                   <Check size={21} strokeWidth={3} />
                 </span>
 
-                <span className="whitespace-nowrap text-[15px] font-medium text-[#183b60] sm:text-[17px]">
+                <span className="whitespace-nowrap text-[15px] font-medium text-black sm:text-[17px]">
                   Verified Doctor
                 </span>
               </div>
@@ -109,7 +109,7 @@ export default function Home()
                   <Check size={21} strokeWidth={3} />
                 </span>
 
-                <span className="whitespace-nowrap text-[15px] font-medium text-[#183b60] sm:text-[17px]">
+                <span className="whitespace-nowrap text-[15px] font-medium text-black sm:text-[17px]">
                   Easy Appointments
                 </span>
               </div>
@@ -141,7 +141,7 @@ export default function Home()
               </div>
 
               <div>
-                <h2 className="whitespace-nowrap text-[16px] font-semibold leading-6 text-[#183b60] sm:text-[18px]">
+                <h2 className="whitespace-nowrap text-[16px] font-semibold leading-6 text-black sm:text-[18px]">
                   Trusted Care
                 </h2>
 
@@ -173,7 +173,7 @@ export default function Home()
                 onChange={(e) => setDoctor(e.target.value)}
                 placeholder="Doctor"
                 aria-label="Doctor name"
-                className="ml-[18px] h-full min-w-0 flex-1 bg-transparent text-[17px] text-[#183b60] outline-none placeholder:text-[#536d89]"
+                className="ml-[18px] h-full min-w-0 flex-1 bg-transparent text-[17px] text-black outline-none placeholder:text-[#536d89]"
               />
 
               <ChevronDown
@@ -194,7 +194,7 @@ export default function Home()
                 value={specialty}
                 onChange={(e) => setSpecialty(e.target.value)}
                 aria-label="Select specialty"
-                className="ml-[18px] h-full min-w-0 flex-1 cursor-pointer appearance-none bg-transparent text-[17px] text-[#183b60] outline-none"
+                className="ml-[18px] h-full min-w-0 flex-1 cursor-pointer appearance-none bg-transparent text-[17px] text-black outline-none"
               >
                 <option value="">Specialty</option>
                 <option value="cardiology">Cardiology</option>
@@ -227,7 +227,7 @@ export default function Home()
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="Location"
                 aria-label="City or location"
-                className="ml-[18px] h-full min-w-0 flex-1 bg-transparent text-[17px] text-[#183b60] outline-none placeholder:text-[#536d89]"
+                className="ml-[18px] h-full min-w-0 flex-1 bg-transparent text-[17px] text-black outline-none placeholder:text-[#536d89]"
               />
 
               <ChevronDown
@@ -310,7 +310,7 @@ export default function Home()
 
           {/* CONTENT */}
           <div className="min-w-0 pt-[4px]">
-            <h3 className="text-[18px] font-semibold leading-6 tracking-[-0.35px] text-[#183b60] transition-colors duration-200 group-hover:text-[#1769cf]">
+            <h3 className="text-[18px] font-semibold leading-6 tracking-[-0.35px] text-black transition-colors duration-200 group-hover:text-[#1769cf]">
               {item.title}
             </h3>
 
@@ -363,7 +363,7 @@ export default function Home()
         </div>
 
         {/* TITLE */}
-        <h2 className="text-[38px] font-extrabold leading-[1.15] tracking-[-1.5px] text-[#183b60] sm:text-[46px]">
+        <h2 className="text-[38px] font-extrabold leading-[1.15] tracking-[-1.5px] text-black sm:text-[46px]">
           Top{" "}
           <span className="text-[#1971d4]">
             Specialties
@@ -466,7 +466,7 @@ export default function Home()
             </div>
 
             {/* TITLE */}
-            <h3 className="mt-[24px] text-[17px] font-semibold leading-[24px] tracking-[-0.25px] text-[#183b60] transition-colors duration-200 group-hover:text-[#1769cf] sm:text-[18px]">
+            <h3 className="mt-[24px] text-[17px] font-semibold leading-[24px] tracking-[-0.25px] text-black transition-colors duration-200 group-hover:text-[#1769cf] sm:text-[18px]">
               {specialty.title}
             </h3>
 
@@ -502,7 +502,7 @@ export default function Home()
         </div>
 
         {/* HEADING */}
-        <h2 className="text-[36px] font-extrabold leading-[1.15] tracking-[-1.3px] text-[#183b60] sm:text-[42px]">
+        <h2 className="text-[36px] font-extrabold leading-[1.15] tracking-[-1.3px]  text-black sm:text-[42px]">
           Featured Doctors
         </h2>
 
@@ -591,7 +591,7 @@ export default function Home()
           <div className="min-w-0 flex-1">
 
             {/* NAME */}
-            <h3 className="text-[17px] font-semibold leading-[25px] tracking-[-0.3px] text-[#183b60] transition-colors duration-200 group-hover:text-[#1769cf] sm:text-[20px]">
+            <h3 className="text-[17px] font-semibold leading-[25px] tracking-[-0.3px] text-black transition-colors duration-200 group-hover:text-[#1769cf] sm:text-[20px]">
               {doctor.name}
             </h3>
 
@@ -636,7 +636,7 @@ export default function Home()
                 stroke="#fbbf24"
               />
 
-              <span className="text-[15px] font-bold text-[#183b60] sm:text-[16px]">
+              <span className="text-[15px] font-bold text-black sm:text-[16px]">
                 {doctor.rating}
               </span>
 
