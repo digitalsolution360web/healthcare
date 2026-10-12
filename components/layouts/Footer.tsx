@@ -1,7 +1,7 @@
 
 import Link from "next/link";
 import {
-  HeartPulse,
+  Heart,
   CalendarCheck,
   ShieldCheck,
   Headset,
@@ -16,6 +16,7 @@ import {
   ArrowUpRight,
   ArrowUp,
 } from "lucide-react";
+
 import {
   FaFacebookF,
   FaInstagram,
@@ -28,19 +29,16 @@ const features = [
     title: "Easy Booking",
     description: "Book your visit in a few clicks",
     icon: CalendarCheck,
-    iconStyle: "bg-blue-100 text-healthcare-blue",
   },
   {
     title: "Verified Doctors",
-    description: "Trusted & certified",
+    description: "Trusted and certified professionals",
     icon: ShieldCheck,
-    iconStyle: "bg-emerald-100 text-emerald-600",
   },
   {
     title: "24/7 Support",
-    description: "We're here to help",
+    description: "We're here whenever you need us",
     icon: Headset,
-    iconStyle: "bg-purple-100 text-purple-600",
   },
 ];
 
@@ -48,30 +46,31 @@ const quickLinks = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
   { name: "Our Doctors", href: "/doctors" },
-  { name: "Departments", href: "/departments" },
+  { name: "Clinics", href: "/clinics" },
+  { name: "Hospitals", href: "/hospitals" },
   { name: "Contact Us", href: "/contact" },
 ];
 
 const services = [
   {
-    name: "General Consultation",
-    href: "/departments",
-    icon: Stethoscope,
-  },
-  {
-    name: "Specialist Doctors",
+    name: "Find a Doctor",
     href: "/doctors",
     icon: UserRound,
   },
   {
-    name: "Diagnostic Services",
-    href: "/diagnostics",
-    icon: Microscope,
+    name: "Find a Clinic",
+    href: "/clinics",
+    icon: Stethoscope,
   },
   {
-    name: "Pharmacy",
-    href: "/pharmacy",
-    icon: Pill,
+    name: "Find a Hospital",
+    href: "/hospitals",
+    icon: Heart,
+  },
+  {
+    name: "Lab Tests",
+    href: "/lab-tests",
+    icon: Microscope,
   },
   {
     name: "Book an Appointment",
@@ -102,16 +101,20 @@ const socialLinks = [
     icon: FaLinkedinIn,
   },
 ];
+
 function FooterHeading({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <h3 className="mb-6 text-base font-bold text-white">
-      {children}
-      <span className="mt-2 block h-1 w-10 rounded-full bg-cyan-300" />
-    </h3>
+    <div className="mb-6">
+      <h3 className="text-base font-bold tracking-wide text-white">
+        {children}
+      </h3>
+
+      <span className="mt-3 block h-[3px] w-10 rounded-full bg-gradient-to-r from-[#4e44e1] to-[#9122b4]" />
+    </div>
   );
 }
 
@@ -119,11 +122,11 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="mt-auto border-t border-slate-200 bg-slate-50">
+    <footer className="mt-auto">
 
-      {/* FOOTER FEATURES */}
-      <div className="mx-auto max-w-7xl px-5 pt-9 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-7 pb-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+      {/* TOP FEATURES */}
+      <section className="border-y border-[#ebe8f4] bg-white">
+        <div className="mx-auto grid max-w-[1480px] grid-cols-1 gap-6 px-5 py-8 sm:grid-cols-2 sm:px-8 lg:grid-cols-3 lg:gap-10 lg:px-8">
 
           {features.map((feature) => {
             const Icon = feature.icon;
@@ -131,20 +134,18 @@ export default function Footer() {
             return (
               <div
                 key={feature.title}
-                className="flex items-center gap-4"
+                className="group flex items-center gap-4"
               >
-                <div
-                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${feature.iconStyle}`}
-                >
-                  <Icon size={23} />
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#e7e3ff] bg-[#f5f3ff] text-[#4e44e1] transition-all duration-300 group-hover:border-[#4e44e1] group-hover:bg-gradient-to-r group-hover:from-[#4e44e1] group-hover:to-[#9122b4] group-hover:text-white">
+                  <Icon size={22} strokeWidth={1.9} />
                 </div>
 
                 <div>
-                  <h4 className="mb-1 text-base font-bold text-healthcare-dark">
+                  <h4 className="text-sm font-bold text-[#151525] sm:text-base">
                     {feature.title}
                   </h4>
 
-                  <p className="text-sm leading-6 text-slate-500">
+                  <p className="mt-1 text-sm leading-6 text-[#73758a]">
                     {feature.description}
                   </p>
                 </div>
@@ -153,19 +154,19 @@ export default function Footer() {
           })}
 
         </div>
-      </div>
+      </section>
 
       {/* MAIN FOOTER */}
-      <div className="relative overflow-hidden bg-[#062b55] text-white">
+      <section className="relative isolate overflow-hidden bg-[#111126] text-white">
 
-        {/* DECORATIVE BACKGROUND */}
-        <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blue-400/10 blur-3xl" />
+        {/* BACKGROUND DECORATION */}
+        <div className="pointer-events-none absolute -right-28 -top-28 -z-10 h-80 w-80 rounded-full bg-[#4e44e1]/20 blur-[100px]" />
 
-        <div className="pointer-events-none absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-36 -left-24 -z-10 h-80 w-80 rounded-full bg-[#9122b4]/15 blur-[100px]" />
 
-        <div className="relative mx-auto max-w-7xl px-5 py-14 sm:px-6 lg:px-8 lg:py-16">
+        <div className="mx-auto max-w-[1480px] px-5 py-12 sm:px-8 sm:py-14 lg:px-8 lg:py-16">
 
-          {/* FOOTER GRID */}
+          {/* FOOTER COLUMNS */}
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
 
             {/* BRAND */}
@@ -173,74 +174,70 @@ export default function Footer() {
 
               <Link
                 href="/"
-                className="mb-5 inline-flex items-center gap-3"
+                aria-label="HealthCare360 Home"
+                className="group mb-6 inline-flex items-center gap-3"
               >
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white text-2xl text-[#0876c9] shadow-lg">
-                  <HeartPulse
-                    size={30}
-                    strokeWidth={2.2}
-                  />
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#4e44e1] to-[#9122b4] text-white shadow-lg shadow-purple-950/30 transition-transform duration-300 group-hover:scale-105">
+                  <Heart size={30} strokeWidth={2} />
                 </div>
 
                 <div>
-                  <h2 className="text-2xl font-extrabold tracking-tight">
+                  <h2 className="text-2xl font-extrabold tracking-tight text-white">
                     HealthCare
-                    <span className="text-cyan-300">
+                    <span className="bg-gradient-to-r from-[#8f86ff] to-[#e0a0ff] bg-clip-text text-transparent">
                       360
                     </span>
                   </h2>
 
-                  <p className="mt-1 text-xs font-medium uppercase tracking-[0.2em] text-blue-200">
+                  <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#b8b4d8]">
                     Your Health, Our Priority
                   </p>
                 </div>
               </Link>
 
-              <p className="max-w-sm text-sm leading-7 text-blue-100/75">
-                Your trusted healthcare partner, providing
-                access to quality medical care, experienced
-                doctors, and personalised support for your
-                well-being.
+              <p className="max-w-sm text-sm leading-7 text-[#b7b7cc]">
+                Your trusted healthcare partner. Discover experienced
+                doctors, explore clinics and hospitals, and access
+                healthcare services with greater convenience.
               </p>
 
-             {/* SOCIAL LINKS */}
-                <div className="mt-6 flex items-center gap-3">
+              {/* SOCIAL LINKS */}
+              <div className="mt-6 flex items-center gap-3">
                 {socialLinks.map((social) => {
-                    const Icon = social.icon;
+                  const Icon = social.icon;
 
-                    return (
-                        <a
-                        key={social.name}
-                        href={social.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={social.name}
-                        className="flex h-10 w-10 items-center justify-center rounded-full"
-                        >
-                        <Icon size={18} />
-                        </a>
-                    );
-                    })}
-                </div>
+                  return (
+                    <a
+                      key={social.name}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={social.name}
+                      className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-[#c8c5e5] transition-all duration-300 hover:-translate-y-1 hover:border-[#4e44e1] hover:bg-gradient-to-r hover:from-[#4e44e1] hover:to-[#9122b4] hover:text-white"
+                    >
+                      <Icon size={17} />
+                    </a>
+                  );
+                })}
+              </div>
             </div>
 
             {/* QUICK LINKS */}
             <div className="lg:col-span-2">
-              <FooterHeading>
-                Quick Links
-              </FooterHeading>
+              <FooterHeading>Quick Links</FooterHeading>
 
-              <ul className="space-y-4 text-sm text-blue-100/75">
+              <ul className="space-y-4">
                 {quickLinks.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="inline-flex items-center gap-2 transition hover:translate-x-1 hover:text-cyan-300"
+                      className="group inline-flex items-center gap-2 text-sm text-[#b7b7cc] transition-colors duration-200 hover:text-white"
                     >
                       <ChevronRight
-                        size={14}
-                        className="shrink-0 text-cyan-300"
+                        size={15}
+                        className="shrink-0 text-[#8f86ff] transition-transform duration-200 group-hover:translate-x-1"
                       />
+
                       {link.name}
                     </Link>
                   </li>
@@ -248,13 +245,11 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* OUR SERVICES */}
+            {/* SERVICES */}
             <div className="lg:col-span-3">
-              <FooterHeading>
-                Our Services
-              </FooterHeading>
+              <FooterHeading>Our Services</FooterHeading>
 
-              <ul className="space-y-4 text-sm text-blue-100/75">
+              <ul className="space-y-4">
                 {services.map((service) => {
                   const Icon = service.icon;
 
@@ -262,12 +257,12 @@ export default function Footer() {
                     <li key={service.name}>
                       <Link
                         href={service.href}
-                        className="inline-flex items-center gap-3 transition hover:text-cyan-300"
+                        className="group inline-flex items-center gap-3 text-sm text-[#b7b7cc] transition-colors duration-200 hover:text-white"
                       >
-                        <Icon
-                          size={17}
-                          className="w-4 shrink-0 text-cyan-300"
-                        />
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/5 text-[#a49bff] transition-all duration-200 group-hover:bg-[#4e44e1]/20 group-hover:text-white">
+                          <Icon size={16} />
+                        </span>
+
                         {service.name}
                       </Link>
                     </li>
@@ -276,26 +271,24 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* CONTACT */}
+            {/* CONTACT INFORMATION */}
             <div className="lg:col-span-3">
-              <FooterHeading>
-                Get In Touch
-              </FooterHeading>
+              <FooterHeading>Get In Touch</FooterHeading>
 
               <div className="space-y-5">
 
                 {/* ADDRESS */}
                 <div className="flex items-start gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-cyan-300">
-                    <MapPin size={19} />
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-[#a49bff]">
+                    <MapPin size={18} />
                   </div>
 
                   <div>
-                    <h4 className="mb-1 text-sm font-semibold">
-                      Visit Our Clinic
+                    <h4 className="text-sm font-semibold text-white">
+                      Our Location
                     </h4>
 
-                    <p className="text-sm leading-6 text-blue-100/70">
+                    <p className="mt-1 text-sm leading-6 text-[#b7b7cc]">
                       Add your clinic address here
                     </p>
                   </div>
@@ -303,18 +296,18 @@ export default function Footer() {
 
                 {/* PHONE */}
                 <div className="flex items-start gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-cyan-300">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-[#a49bff]">
                     <Phone size={18} />
                   </div>
 
                   <div>
-                    <h4 className="mb-1 text-sm font-semibold">
+                    <h4 className="text-sm font-semibold text-white">
                       Call Us
                     </h4>
 
                     <a
                       href="tel:+910000000000"
-                      className="text-sm text-blue-100/70 transition hover:text-cyan-300"
+                      className="mt-1 block text-sm text-[#b7b7cc] transition-colors hover:text-white"
                     >
                       +91 XXXXX XXXXX
                     </a>
@@ -323,85 +316,84 @@ export default function Footer() {
 
                 {/* EMAIL */}
                 <div className="flex items-start gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-cyan-300">
-                    <Mail size={19} />
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-[#a49bff]">
+                    <Mail size={18} />
                   </div>
 
                   <div className="min-w-0">
-                    <h4 className="mb-1 text-sm font-semibold">
+                    <h4 className="text-sm font-semibold text-white">
                       Email Us
                     </h4>
 
                     <a
                       href="mailto:info@example.com"
-                      className="break-all text-sm text-blue-100/70 transition hover:text-cyan-300"
+                      className="mt-1 block break-all text-sm text-[#b7b7cc] transition-colors hover:text-white"
                     >
                       info@example.com
                     </a>
                   </div>
                 </div>
-
               </div>
 
-              {/* APPOINTMENT BUTTON */}
+              {/* APPOINTMENT CTA */}
               <Link
                 href="/appointments"
-                className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-cyan-400 px-5 py-3.5 text-sm font-bold text-[#062b55] shadow-lg shadow-cyan-950/20 transition duration-300 hover:-translate-y-1 hover:bg-cyan-300 sm:w-auto"
+                className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#4e44e1] to-[#9122b4] px-4 py-3.5 text-sm font-bold text-white shadow-lg shadow-purple-950/25 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-950/40 sm:w-auto"
               >
                 <CalendarCheck size={17} />
 
                 Book an Appointment
 
-                <ArrowUpRight
-                  size={14}
-                  className="ml-1"
-                />
+                <ArrowUpRight size={16} />
               </Link>
             </div>
 
           </div>
 
-          {/* FOOTER BOTTOM */}
-          <div className="mt-12 border-t border-white/15 pt-6">
-            <div className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
+          {/* BOTTOM FOOTER */}
+          <div className="mt-12 border-t border-white/10 pt-6 lg:mt-14">
 
-              <p className="text-xs leading-6 text-blue-100/60">
-                &copy; {currentYear} HealthCare360.
-                All rights reserved.
+            <div className="flex flex-col items-center justify-between gap-5 text-center sm:flex-row sm:text-left">
+
+              <p className="text-xs leading-6 text-[#9292ac]">
+                © {currentYear} HealthCare360. All rights reserved.
               </p>
 
-              <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-blue-100/60">
+              <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-xs text-[#9292ac]">
                 <Link
                   href="/privacy-policy"
-                  className="transition hover:text-cyan-300"
+                  className="transition-colors hover:text-white"
                 >
                   Privacy Policy
                 </Link>
 
-                <span className="hidden h-1 w-1 rounded-full bg-blue-200/40 sm:block" />
+                <span className="hidden h-1 w-1 rounded-full bg-[#666681] sm:block" />
 
                 <Link
                   href="/terms"
-                  className="transition hover:text-cyan-300"
+                  className="transition-colors hover:text-white"
                 >
                   Terms &amp; Conditions
                 </Link>
               </div>
 
-              {/* BACK TO TOP - NO CLIENT EVENT HANDLER */}
+              {/* BACK TO TOP */}
               <a
                 href="#top"
-                className="inline-flex items-center gap-2 text-xs font-semibold text-blue-100/70 transition hover:text-cyan-300"
+                className="group inline-flex items-center gap-2 text-xs font-semibold text-[#b7b7cc] transition-colors hover:text-white"
               >
                 Back to top
-                <ArrowUp size={15} />
+
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition-all duration-200 group-hover:border-[#4e44e1] group-hover:bg-[#4e44e1]">
+                  <ArrowUp size={14} />
+                </span>
               </a>
 
             </div>
           </div>
 
         </div>
-      </div>
+      </section>
     </footer>
   );
 }

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useMemo, useState } from "react";
@@ -51,18 +52,13 @@ const hospitals: Hospital[] = [
     address: "Sector 26, Noida, Uttar Pradesh",
     rating: 4.8,
     reviews: 1250,
-    specialties: [
-      "Cardiology",
-      "Orthopedics",
-      "Neurology",
-      "Oncology",
-    ],
+    specialties: ["Cardiology", "Orthopedics", "Neurology", "Oncology"],
     insurance: ["All Insurance", "Star Health", "HDFC ERGO"],
     emergency: true,
     open: true,
     logo: "Apollo",
-    logoColor: "#0878b9",
-    logoBg: "#edf7ff",
+    logoColor: "#4e44e1",
+    logoBg: "#f5f3ff",
     description:
       "Multispeciality hospital offering comprehensive healthcare and advanced medical services.",
   },
@@ -74,18 +70,13 @@ const hospitals: Hospital[] = [
     address: "Sector 11, Noida, Uttar Pradesh",
     rating: 4.6,
     reviews: 890,
-    specialties: [
-      "Cardiology",
-      "Orthopedics",
-      "Neurology",
-      "Oncology",
-    ],
+    specialties: ["Cardiology", "Orthopedics", "Neurology", "Oncology"],
     insurance: ["All Insurance", "ICICI Lombard"],
     emergency: true,
     open: true,
     logo: "✚ METRO",
-    logoColor: "#17639b",
-    logoBg: "#f0f7fc",
+    logoColor: "#4e44e1",
+    logoBg: "#f5f3ff",
     description:
       "A multispeciality healthcare centre providing diagnostic, surgical and emergency care.",
   },
@@ -97,12 +88,7 @@ const hospitals: Hospital[] = [
     address: "Sector 62, Noida, Uttar Pradesh",
     rating: 4.7,
     reviews: 1050,
-    specialties: [
-      "Cardiology",
-      "Neurology",
-      "Oncology",
-      "Pediatrics",
-    ],
+    specialties: ["Cardiology", "Neurology", "Oncology", "Pediatrics"],
     insurance: ["All Insurance", "Star Health", "ICICI Lombard"],
     emergency: true,
     open: true,
@@ -131,8 +117,8 @@ const hospitals: Hospital[] = [
     emergency: true,
     open: true,
     logo: "MAX",
-    logoColor: "#0878b9",
-    logoBg: "#edf7ff",
+    logoColor: "#4e44e1",
+    logoBg: "#f5f3ff",
     description:
       "Super speciality healthcare facility with a range of medical and surgical departments.",
   },
@@ -144,17 +130,13 @@ const hospitals: Hospital[] = [
     address: "Sector 50, Noida, Uttar Pradesh",
     rating: 4.3,
     reviews: 420,
-    specialties: [
-      "Orthopedics",
-      "Pediatrics",
-      "Cardiology",
-    ],
+    specialties: ["Orthopedics", "Pediatrics", "Cardiology"],
     insurance: ["All Insurance", "ICICI Lombard"],
     emergency: false,
     open: true,
     logo: "CITY CARE",
-    logoColor: "#0878b9",
-    logoBg: "#edf7ff",
+    logoColor: "#4e44e1",
+    logoBg: "#f5f3ff",
     description:
       "Community-focused hospital offering consultations, diagnostics and general medical care.",
   },
@@ -166,11 +148,7 @@ const hospitals: Hospital[] = [
     address: "Indirapuram, Ghaziabad, Uttar Pradesh",
     rating: 4.5,
     reviews: 610,
-    specialties: [
-      "Cardiology",
-      "Pediatrics",
-      "Oncology",
-    ],
+    specialties: ["Cardiology", "Pediatrics", "Oncology"],
     insurance: ["All Insurance", "Star Health"],
     emergency: true,
     open: true,
@@ -207,14 +185,11 @@ const ratings = [
 export default function HospitalsPage() {
   const [search, setSearch] = useState("");
   const [location, setLocation] = useState("India");
-  const [selectedSpecialties, setSelectedSpecialties] = useState<string[]>(
-    []
-  );
+  const [selectedSpecialties, setSelectedSpecialties] = useState<string[]>([]);
   const [rating, setRating] = useState(0);
   const [insurance, setInsurance] = useState("All Insurance");
   const [emergencyOnly, setEmergencyOnly] = useState(false);
   const [sortBy, setSortBy] = useState("Popularity");
-
   const [filtersOpen, setFiltersOpen] = useState(false);
 
   /* =========================================
@@ -223,7 +198,6 @@ export default function HospitalsPage() {
 
   const filteredHospitals = useMemo(() => {
     let result = [...hospitals];
-
     const searchText = search.trim().toLowerCase();
 
     if (searchText) {
@@ -316,77 +290,91 @@ export default function HospitalsPage() {
     insurance !== "All Insurance" ||
     emergencyOnly;
 
+  /* =========================================
+     REUSABLE STYLES
+  ========================================= */
+
+  const inputClass =
+    "h-11 w-full appearance-none rounded-xl border border-[#ebe8f4] bg-white px-3 pr-9 text-sm text-[#4B5568] outline-none transition focus:border-[#7167eb] focus:ring-2 focus:ring-[#7167eb]/10";
+
+  const checkboxClass =
+    "h-4 w-4 cursor-pointer accent-[#4e44e1]";
+
   return (
-    <main className="min-h-screen bg-[#f3f8fc] text-black">
+    <main className="min-h-screen bg-[#fbfaff] text-[#17152b]">
 
       {/* =====================================
           PAGE HEADER
       ===================================== */}
 
-      <section className="border-b border-[#dce6f2] bg-gradient-to-r from-[#eef7ff] to-white">
-        <div className="mx-auto max-w-[1440px] px-4 pb-6 pt-7 sm:px-6 sm:pb-8 sm:pt-9 lg:px-10">
+      <section className="relative isolate overflow-hidden border-b border-[#ebe8f4] bg-gradient-to-br from-[#f5f3ff] via-white to-[#f9f0ff]">
+        <div className="pointer-events-none absolute -left-28 -top-24 -z-10 h-72 w-72 rounded-full bg-[#4e44e1]/10 blur-[100px]" />
+        <div className="pointer-events-none absolute -right-20 top-10 -z-10 h-72 w-72 rounded-full bg-[#9122b4]/10 blur-[100px]" />
+
+        <div className="mx-auto max-w-[1440px] px-4 pb-7 pt-7 sm:px-6 sm:pb-9 sm:pt-9 lg:px-10">
 
           {/* Breadcrumb */}
 
-          <div className="mb-5 flex items-center gap-2 text-sm font-medium text-black">
+          <nav
+            aria-label="Breadcrumb"
+            className="mb-6 flex items-center gap-2 text-sm font-medium text-[#6b6880]"
+          >
             <Link
               href="/"
-              className="transition hover:text-[#0878d1]"
+              className="transition-colors hover:text-[#4e44e1]"
             >
               Home
             </Link>
 
-            <ChevronRight size={15} />
+            <ChevronRight size={15} className="text-[#aaa5bd]" />
 
-            <span>Hospitals</span>
-          </div>
+            <span className="font-semibold text-[#17152b]">
+              Hospitals
+            </span>
+          </nav>
 
           <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
-
             <div>
-              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#d6e9fa] bg-white px-3.5 py-2 text-xs font-semibold text-black">
-                <HeartPulse size={15} className="text-[#0878d1]" />
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#ebe8f4] bg-white/90 px-3.5 py-2 text-xs font-bold tracking-[0.12em] text-[#4e44e1] shadow-sm">
+                <HeartPulse size={15} />
                 HEALTHCARE DIRECTORY
               </div>
 
-                <h1 className="text-[30px] font-extrabold leading-tight tracking-[-0.7px] text-black sm:text-[36px] lg:text-[40px]">
+              <h1 className="text-[30px] font-extrabold leading-tight tracking-[-0.8px] text-[#17152b] sm:text-[36px] lg:text-[44px]">
                 Hospitals Near You
               </h1>
 
-              <p className="mt-3 max-w-2xl text-sm leading-7 text-black sm:text-base">
-                Find the best hospital for your healthcare needs.
-                Explore hospitals, specialties and available facilities.
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-[#6b6880] sm:text-base">
+                Find the right hospital for your healthcare needs.
+                Explore specialties, emergency facilities and available services.
               </p>
             </div>
 
-            <div className="flex items-center gap-2 text-sm font-medium text-black">
-              <Building2 size={19} className="text-[#0878d1]" />
-              <span>Find a Hospital</span>
+            <div className="inline-flex w-fit items-center gap-2.5 rounded-xl border border-[#ebe8f4] bg-white/90 px-4 py-3 text-sm font-semibold text-[#4B5568] shadow-sm">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#f5f3ff] text-[#4e44e1]">
+                <Building2 size={19} />
+              </span>
+              Find a Hospital
             </div>
           </div>
 
-          {/* =====================================
-              SEARCH BAR
-          ===================================== */}
+          {/* Search Bar */}
 
-          <div className="mt-7 rounded-2xl border border-[#dce6f2] bg-white p-2 shadow-[0_5px_22px_rgba(24,59,96,0.06)] sm:mt-8 sm:p-3">
-
+          <div className="mt-7 rounded-2xl border border-[#ebe8f4] bg-white/95 p-2 shadow-[0_12px_40px_rgba(78,68,225,0.07)] sm:mt-8 sm:p-3">
             <div className="grid grid-cols-1 gap-2 md:grid-cols-[minmax(0,1fr)_240px_auto]">
 
               {/* Search Input */}
 
-              <div className="flex min-h-[54px] min-w-0 items-center gap-3 rounded-xl px-3 sm:px-4">
-                <Search
-                  size={21}
-                  className="shrink-0 text-black"
-                />
+              <div className="flex min-h-[54px] min-w-0 items-center gap-3 rounded-xl px-3 transition focus-within:bg-[#fbfaff] sm:px-4">
+                <Search size={21} className="shrink-0 text-[#7167eb]" />
 
                 <input
                   type="text"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search hospital name or specialty..."
-                  className="h-full min-w-0 flex-1 bg-transparent text-sm text-black outline-none placeholder:text-black sm:text-base"
+                  aria-label="Search hospitals"
+                  className="h-full min-w-0 flex-1 bg-transparent text-sm text-[#17152b] outline-none placeholder:text-[#a09bb2] sm:text-base"
                 />
 
                 {search && (
@@ -394,7 +382,7 @@ export default function HospitalsPage() {
                     type="button"
                     onClick={() => setSearch("")}
                     aria-label="Clear search"
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-black hover:bg-[#f1f5f9]"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[#817c95] transition hover:bg-[#f5f3ff] hover:text-[#4e44e1]"
                   >
                     <X size={17} />
                   </button>
@@ -403,45 +391,35 @@ export default function HospitalsPage() {
 
               {/* Location */}
 
-              <div className="flex min-h-[54px] items-center gap-3 rounded-xl border border-[#e3eaf2] px-3 sm:px-4">
-                <MapPin
-                  size={20}
-                  className="shrink-0 text-black"
-                />
+              <div className="flex min-h-[54px] items-center gap-3 rounded-xl border border-[#ebe8f4] bg-white px-3 transition focus-within:border-[#7167eb] sm:px-4">
+                <MapPin size={20} className="shrink-0 text-[#7167eb]" />
 
                 <select
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   aria-label="Select location"
-                  className="w-full cursor-pointer appearance-none bg-transparent text-sm font-medium text-black outline-none"
+                  className="w-full cursor-pointer appearance-none bg-transparent text-sm font-medium text-[#4B5568] outline-none"
                 >
                   <option value="India">India</option>
                   <option value="Noida">Noida</option>
                   <option value="Ghaziabad">Ghaziabad</option>
                 </select>
 
-                <ChevronDown
-                  size={16}
-                  className="shrink-0 text-black"
-                />
+                <ChevronDown size={16} className="shrink-0 text-[#817c95]" />
               </div>
 
               {/* Search Button */}
 
               <button
                 type="button"
-                onClick={() => {
-                  setFiltersOpen(false);
-                }}
-                className="inline-flex min-h-[54px] items-center justify-center gap-2 rounded-xl bg-[#0878d1] px-7 text-sm font-semibold text-white transition hover:bg-[#0667b5]"
+                onClick={() => setFiltersOpen(false)}
+                className="inline-flex min-h-[54px] items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#4e44e1] to-[#9122b4] px-7 text-sm font-bold text-white shadow-[0_5px_16px_rgba(78,68,225,0.20)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_22px_rgba(78,68,225,0.28)]"
               >
                 <Search size={18} />
-                Search
+                Search Hospitals
               </button>
-
             </div>
           </div>
-
         </div>
       </section>
 
@@ -449,24 +427,31 @@ export default function HospitalsPage() {
           MAIN CONTENT
       ===================================== */}
 
-      <section className="px-4 py-6 bg-white sm:px-6 sm:py-8 lg:px-10 lg:py-10">
+      <section className="bg-white px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-10">
         <div className="mx-auto max-w-[1440px]">
 
           {/* Mobile Filter Button */}
 
           <div className="mb-5 flex items-center justify-between gap-3 lg:hidden">
-
-            <p className="text-sm font-semibold text-black">
+            <p className="text-sm font-bold text-[#17152b]">
               {filteredHospitals.length} Hospitals Found
             </p>
 
             <button
               type="button"
               onClick={() => setFiltersOpen(!filtersOpen)}
-              className="inline-flex min-h-[44px] items-center gap-2 rounded-lg border border-[#dce6f2] bg-white px-4 text-sm font-semibold text-black"
+              aria-expanded={filtersOpen}
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-[#ebe8f4] bg-white px-4 text-sm font-semibold text-[#4B5568] shadow-sm transition hover:border-[#c8c1f6] hover:text-[#4e44e1]"
             >
               {filtersOpen ? <X size={17} /> : <SlidersHorizontal size={17} />}
               Filters
+              <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#f5f3ff] px-1 text-[11px] font-bold text-[#4e44e1]">
+                {selectedSpecialties.length +
+                  (rating > 0 ? 1 : 0) +
+                  (insurance !== "All Insurance" ? 1 : 0) +
+                  (emergencyOnly ? 1 : 0) +
+                  (location !== "India" ? 1 : 0)}
+              </span>
             </button>
           </div>
 
@@ -481,18 +466,17 @@ export default function HospitalsPage() {
                 filtersOpen ? "block" : "hidden"
               } lg:sticky lg:top-5 lg:block`}
             >
-              <div className="overflow-hidden rounded-xl border border-[#dce6f2] bg-white">
+              <div className="overflow-hidden rounded-2xl border border-[#ebe8f4] bg-white shadow-[0_4px_20px_rgba(34,27,75,0.035)]">
 
                 {/* Filter Heading */}
 
-                <div className="flex items-center justify-between border-b border-[#e5edf5] px-5 py-4">
+                <div className="flex items-center justify-between border-b border-[#f0edf7] px-5 py-4">
                   <div className="flex items-center gap-2.5">
-                    <SlidersHorizontal
-                      size={18}
-                      className="text-black"
-                    />
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#f5f3ff] text-[#4e44e1]">
+                      <SlidersHorizontal size={18} />
+                    </span>
 
-                    <h2 className="text-base font-bold text-black">
+                    <h2 className="text-base font-bold text-[#17152b]">
                       Filters
                     </h2>
                   </div>
@@ -500,18 +484,18 @@ export default function HospitalsPage() {
                   <button
                     type="button"
                     onClick={clearFilters}
-                    className="text-xs font-semibold text-black underline underline-offset-4 hover:text-[#0878d1]"
+                    className="text-xs font-bold text-[#7167eb] underline underline-offset-4 transition hover:text-[#9122b4]"
                   >
                     Clear All
                   </button>
                 </div>
 
-                <div className="divide-y divide-[#e8eef5]">
+                <div className="divide-y divide-[#f0edf7]">
 
                   {/* Location Filter */}
 
                   <div className="p-5">
-                    <h3 className="mb-4 text-sm font-bold text-black">
+                    <h3 className="mb-4 text-sm font-bold text-[#28243c]">
                       Location
                     </h3>
 
@@ -519,7 +503,8 @@ export default function HospitalsPage() {
                       <select
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
-                        className="h-11 w-full appearance-none rounded-lg border border-[#dce6f2] bg-white px-3 pr-9 text-sm text-black outline-none focus:border-[#0878d1]"
+                        aria-label="Filter by location"
+                        className={inputClass}
                       >
                         <option value="India">All Locations</option>
                         <option value="Noida">Noida</option>
@@ -528,7 +513,7 @@ export default function HospitalsPage() {
 
                       <ChevronDown
                         size={16}
-                        className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-black"
+                        className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#817c95]"
                       />
                     </div>
                   </div>
@@ -536,7 +521,7 @@ export default function HospitalsPage() {
                   {/* Specialty Filter */}
 
                   <div className="p-5">
-                    <h3 className="mb-4 text-sm font-bold text-black">
+                    <h3 className="mb-4 text-sm font-bold text-[#28243c]">
                       Specialty
                     </h3>
 
@@ -544,15 +529,14 @@ export default function HospitalsPage() {
                       {specialties.map((specialty) => (
                         <label
                           key={specialty}
-                          className="flex cursor-pointer items-center gap-3 text-sm text-black"
+                          className="group flex cursor-pointer items-center gap-3 text-sm text-[#6b6880] transition hover:text-[#4e44e1]"
                         >
                           <input
                             type="checkbox"
                             checked={selectedSpecialties.includes(specialty)}
                             onChange={() => toggleSpecialty(specialty)}
-                            className="h-4 w-4 cursor-pointer accent-[#0878d1]"
+                            className={checkboxClass}
                           />
-
                           <span>{specialty}</span>
                         </label>
                       ))}
@@ -562,46 +546,46 @@ export default function HospitalsPage() {
                   {/* Rating Filter */}
 
                   <div className="p-5">
-                    <h3 className="mb-4 text-sm font-bold text-black">
+                    <h3 className="mb-4 text-sm font-bold text-[#28243c]">
                       Rating
                     </h3>
 
                     <div className="space-y-3.5">
-                      <label className="flex cursor-pointer items-center gap-3 text-sm text-black">
+                      <label className="flex cursor-pointer items-center gap-3 text-sm text-[#6b6880] transition hover:text-[#4e44e1]">
                         <input
                           type="radio"
                           name="rating"
                           checked={rating === 0}
                           onChange={() => setRating(0)}
-                          className="h-4 w-4 accent-[#0878d1]"
+                          className="h-4 w-4 accent-[#4e44e1]"
                         />
-
                         Any Rating
                       </label>
 
                       {ratings.map((item) => (
                         <label
                           key={item.value}
-                          className="flex cursor-pointer items-center gap-3 text-sm text-black"
+                          className="flex cursor-pointer items-center gap-3 text-sm text-[#6b6880] transition hover:text-[#4e44e1]"
                         >
                           <input
                             type="radio"
                             name="rating"
                             checked={rating === item.value}
                             onChange={() => setRating(item.value)}
-                            className="h-4 w-4 accent-[#0878d1]"
+                            className="h-4 w-4 accent-[#4e44e1]"
                           />
 
                           <span className="flex items-center gap-2">
                             {item.label}
-
-                            <span className="flex items-center gap-1">
+                            <span className="flex items-center gap-1 rounded-md bg-[#fff8e7] px-1.5 py-0.5">
                               <Star
-                                size={13}
+                                size={12}
                                 fill="#fbbf24"
                                 stroke="#fbbf24"
                               />
-                              <span>{item.value}+</span>
+                              <span className="text-xs font-semibold text-[#80601b]">
+                                {item.value}+
+                              </span>
                             </span>
                           </span>
                         </label>
@@ -612,7 +596,7 @@ export default function HospitalsPage() {
                   {/* Insurance Filter */}
 
                   <div className="p-5">
-                    <h3 className="mb-4 text-sm font-bold text-black">
+                    <h3 className="mb-4 text-sm font-bold text-[#28243c]">
                       Insurance
                     </h3>
 
@@ -620,7 +604,8 @@ export default function HospitalsPage() {
                       <select
                         value={insurance}
                         onChange={(e) => setInsurance(e.target.value)}
-                        className="h-11 w-full appearance-none rounded-lg border border-[#dce6f2] bg-white px-3 pr-9 text-sm text-black outline-none focus:border-[#0878d1]"
+                        aria-label="Filter by insurance"
+                        className={inputClass}
                       >
                         <option value="All Insurance">All Insurance</option>
                         <option value="Star Health">Star Health</option>
@@ -630,7 +615,7 @@ export default function HospitalsPage() {
 
                       <ChevronDown
                         size={16}
-                        className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-black"
+                        className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#817c95]"
                       />
                     </div>
                   </div>
@@ -638,38 +623,33 @@ export default function HospitalsPage() {
                   {/* Emergency Filter */}
 
                   <div className="p-5">
-                    <h3 className="mb-4 text-sm font-bold text-black">
+                    <h3 className="mb-4 text-sm font-bold text-[#28243c]">
                       Emergency
                     </h3>
 
-                    <label className="flex cursor-pointer items-center gap-3 text-sm text-black">
+                    <label className="flex cursor-pointer items-center gap-3 text-sm text-[#6b6880] transition hover:text-[#4e44e1]">
                       <input
                         type="checkbox"
                         checked={emergencyOnly}
-                        onChange={(e) =>
-                          setEmergencyOnly(e.target.checked)
-                        }
-                        className="h-4 w-4 accent-[#0878d1]"
+                        onChange={(e) => setEmergencyOnly(e.target.checked)}
+                        className={checkboxClass}
                       />
-
-                      24/7 Emergency
+                      <span>24/7 Emergency</span>
                     </label>
                   </div>
-
                 </div>
 
                 {/* Apply Filters */}
 
-                <div className="border-t border-[#e5edf5] p-5 lg:hidden">
+                <div className="border-t border-[#f0edf7] p-5 lg:hidden">
                   <button
                     type="button"
                     onClick={() => setFiltersOpen(false)}
-                    className="flex min-h-[48px] w-full items-center justify-center rounded-lg bg-[#0878d1] px-5 text-sm font-semibold text-white"
+                    className="flex min-h-[48px] w-full items-center justify-center rounded-xl bg-gradient-to-r from-[#4e44e1] to-[#9122b4] px-5 text-sm font-bold text-white shadow-md shadow-[#4e44e1]/15 transition hover:shadow-lg"
                   >
                     Show {filteredHospitals.length} Hospitals
                   </button>
                 </div>
-
               </div>
             </aside>
 
@@ -681,14 +661,13 @@ export default function HospitalsPage() {
 
               {/* Results Toolbar */}
 
-              <div className="mb-5 flex flex-col justify-between gap-4 rounded-xl border border-[#dce6f2] bg-white px-4 py-4 sm:flex-row sm:items-center sm:px-5">
-
+              <div className="mb-5 flex flex-col justify-between gap-4 rounded-2xl border border-[#ebe8f4] bg-white px-4 py-4 shadow-[0_4px_20px_rgba(34,27,75,0.025)] sm:flex-row sm:items-center sm:px-5">
                 <div>
-                  <h2 className="text-base font-bold text-black">
+                  <h2 className="text-base font-bold text-[#17152b]">
                     Showing {filteredHospitals.length} Hospitals
                   </h2>
 
-                  <p className="mt-1 text-sm text-black">
+                  <p className="mt-1 text-sm text-[#858097]">
                     Find hospitals that match your needs
                   </p>
                 </div>
@@ -696,7 +675,7 @@ export default function HospitalsPage() {
                 <div className="flex items-center gap-3">
                   <label
                     htmlFor="sort-hospitals"
-                    className="shrink-0 text-sm font-medium text-black"
+                    className="shrink-0 text-sm font-medium text-[#6b6880]"
                   >
                     Sort by:
                   </label>
@@ -706,7 +685,7 @@ export default function HospitalsPage() {
                       id="sort-hospitals"
                       value={sortBy}
                       onChange={(e) => setSortBy(e.target.value)}
-                      className="h-10 w-full appearance-none rounded-lg border border-[#dce6f2] bg-white pl-3 pr-9 text-sm font-semibold text-black outline-none focus:border-[#0878d1] sm:w-[165px]"
+                      className="h-10 w-full appearance-none rounded-xl border border-[#ebe8f4] bg-white pl-3 pr-9 text-sm font-semibold text-[#4B5568] outline-none transition focus:border-[#7167eb] sm:w-[165px]"
                     >
                       <option value="Popularity">Popularity</option>
                       <option value="Rating">Rating</option>
@@ -715,30 +694,36 @@ export default function HospitalsPage() {
 
                     <ChevronDown
                       size={15}
-                      className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-black"
+                      className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#817c95]"
                     />
                   </div>
                 </div>
-
               </div>
 
               {/* Active Filters */}
 
               {hasActiveFilters && (
                 <div className="mb-5 flex flex-wrap items-center gap-2">
-
                   {search.trim() && (
-                    <span className="inline-flex items-center gap-2 rounded-full border border-[#dce6f2] bg-white px-3 py-2 text-xs font-medium text-black">
+                    <button
+                      type="button"
+                      onClick={() => setSearch("")}
+                      className="inline-flex items-center gap-2 rounded-full border border-[#e4e0f6] bg-white px-3 py-2 text-xs font-medium text-[#5e568b] transition hover:border-[#bcb4f3]"
+                    >
                       Search: {search}
+                      <X size={14} />
+                    </button>
+                  )}
 
-                      <button
-                        type="button"
-                        onClick={() => setSearch("")}
-                        aria-label="Remove search filter"
-                      >
-                        <X size={14} />
-                      </button>
-                    </span>
+                  {location !== "India" && (
+                    <button
+                      type="button"
+                      onClick={() => setLocation("India")}
+                      className="inline-flex items-center gap-2 rounded-full border border-[#e4e0f6] bg-white px-3 py-2 text-xs font-medium text-[#5e568b] transition hover:border-[#bcb4f3]"
+                    >
+                      {location}
+                      <X size={14} />
+                    </button>
                   )}
 
                   {selectedSpecialties.map((specialty) => (
@@ -746,61 +731,84 @@ export default function HospitalsPage() {
                       key={specialty}
                       type="button"
                       onClick={() => toggleSpecialty(specialty)}
-                      className="inline-flex items-center gap-2 rounded-full border border-[#dce6f2] bg-white px-3 py-2 text-xs font-medium text-black"
+                      className="inline-flex items-center gap-2 rounded-full border border-[#e4e0f6] bg-white px-3 py-2 text-xs font-medium text-[#5e568b] transition hover:border-[#bcb4f3]"
                     >
                       {specialty}
                       <X size={14} />
                     </button>
                   ))}
 
+                  {rating > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => setRating(0)}
+                      className="inline-flex items-center gap-2 rounded-full border border-[#e4e0f6] bg-white px-3 py-2 text-xs font-medium text-[#5e568b] transition hover:border-[#bcb4f3]"
+                    >
+                      Rating {rating}+
+                      <X size={14} />
+                    </button>
+                  )}
+
+                  {insurance !== "All Insurance" && (
+                    <button
+                      type="button"
+                      onClick={() => setInsurance("All Insurance")}
+                      className="inline-flex items-center gap-2 rounded-full border border-[#e4e0f6] bg-white px-3 py-2 text-xs font-medium text-[#5e568b] transition hover:border-[#bcb4f3]"
+                    >
+                      {insurance}
+                      <X size={14} />
+                    </button>
+                  )}
+
+                  {emergencyOnly && (
+                    <button
+                      type="button"
+                      onClick={() => setEmergencyOnly(false)}
+                      className="inline-flex items-center gap-2 rounded-full border border-[#e4e0f6] bg-white px-3 py-2 text-xs font-medium text-[#5e568b] transition hover:border-[#bcb4f3]"
+                    >
+                      24/7 Emergency
+                      <X size={14} />
+                    </button>
+                  )}
+
                   <button
                     type="button"
                     onClick={clearFilters}
-                    className="px-2 py-2 text-xs font-semibold text-black underline underline-offset-4"
+                    className="px-2 py-2 text-xs font-bold text-[#7167eb] underline underline-offset-4 transition hover:text-[#9122b4]"
                   >
                     Clear all
                   </button>
                 </div>
               )}
 
-              {/* =================================
-                  HOSPITAL CARDS
-              ================================= */}
+              {/* Hospital Cards */}
 
               {filteredHospitals.length > 0 ? (
                 <div className="space-y-4">
-
                   {filteredHospitals.map((hospital) => (
                     <article
                       key={hospital.id}
-                      className="group overflow-hidden rounded-xl border border-[#dce6f2] bg-white transition duration-200 hover:border-[#b9d8f2] hover:shadow-[0_8px_28px_rgba(24,59,96,0.08)]"
+                      className="group overflow-hidden rounded-2xl border border-[#ebe8f4] bg-white transition duration-300 hover:-translate-y-0.5 hover:border-[#c9c2f5] hover:shadow-[0_12px_32px_rgba(78,68,225,0.08)]"
                     >
-                      <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-[150px_minmax(0,1fr)] sm:gap-5 sm:p-5 lg:grid-cols-[165px_minmax(0,1fr)_140px] lg:items-center lg:gap-6">
+                      <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-[150px_minmax(0,1fr)] sm:gap-5 sm:p-5 lg:grid-cols-[165px_minmax(0,1fr)_150px] lg:items-center lg:gap-6">
 
                         {/* Hospital Logo */}
 
                         <div
-                          className="flex h-[110px] w-full items-center justify-center overflow-hidden rounded-xl border border-[#edf1f5] sm:h-[130px] sm:w-[150px] lg:h-[135px] lg:w-[165px]"
-                          style={{
-                            backgroundColor: hospital.logoBg,
-                          }}
+                          className="flex h-[110px] w-full items-center justify-center overflow-hidden rounded-xl border border-[#ebe8f4] sm:h-[130px] sm:w-[150px] lg:h-[135px] lg:w-[165px]"
+                          style={{ backgroundColor: hospital.logoBg }}
                         >
                           <div
                             className="flex flex-col items-center justify-center px-2 text-center"
-                            style={{
-                              color: hospital.logoColor,
-                            }}
+                            style={{ color: hospital.logoColor }}
                           >
-                            <Building2
-                              size={31}
-                              strokeWidth={2.2}
-                            />
+                            <Building2 size={31} strokeWidth={2.2} />
 
                             <span className="mt-2 text-lg font-extrabold tracking-tight sm:text-xl">
                               {hospital.logo}
                             </span>
 
-                            <span className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.15em]">
+                            <span className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.15em] opacity-75">
                               Hospital
                             </span>
                           </div>
@@ -809,72 +817,65 @@ export default function HospitalsPage() {
                         {/* Hospital Details */}
 
                         <div className="min-w-0">
-
                           <div className="flex flex-wrap items-center gap-2">
-                            <h3 className="text-lg font-bold leading-7 text-black transition group-hover:text-[#0878d1] sm:text-xl">
+                            <h3 className="text-lg font-bold leading-7 text-[#17152b] transition-colors group-hover:text-[#4e44e1] sm:text-xl">
                               {hospital.name}
                             </h3>
 
                             <CheckCircle2
                               size={17}
-                              className="shrink-0 text-[#0878d1]"
+                              className="shrink-0 text-[#7167eb]"
                             />
                           </div>
 
-                          <p className="mt-1 text-sm font-medium text-black">
+                          <p className="mt-1 text-sm font-medium text-[#858097]">
                             Multispeciality Hospital
                           </p>
 
                           {/* Rating */}
 
                           <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1">
-                            <div className="flex items-center gap-1 rounded-md bg-[#fff8e7] px-2 py-1">
+                            <div className="flex items-center gap-1 rounded-lg border border-[#f4e7b8] bg-[#fff9e8] px-2 py-1">
                               <Star
                                 size={14}
                                 fill="#fbbf24"
-                                stroke="#fbbf24"
+                                stroke="#d99a06"
                               />
 
-                              <span className="text-sm font-bold text-black">
-                                {hospital.rating}
+                              <span className="text-sm font-bold text-[#59471e]">
+                                {hospital.rating.toFixed(1)}
                               </span>
                             </div>
 
-                            <span className="text-xs text-black">
+                            <span className="text-xs text-[#858097]">
                               ({hospital.reviews.toLocaleString("en-IN")} reviews)
                             </span>
                           </div>
 
                           {/* Location */}
 
-                          <div className="mt-3 flex items-start gap-2 text-sm text-black">
+                          <div className="mt-3 flex items-start gap-2 text-sm text-[#6b6880]">
                             <MapPin
                               size={16}
-                              className="mt-0.5 shrink-0 text-black"
+                              className="mt-0.5 shrink-0 text-[#7167eb]"
                             />
-
                             <span>{hospital.address}</span>
                           </div>
 
-                          {/* Emergency */}
+                          {/* Emergency & Insurance */}
 
                           <div className="mt-3 flex flex-wrap items-center gap-2">
-
                             {hospital.emergency && (
-                              <span className="inline-flex items-center gap-1.5 rounded-md bg-[#ecfdf5] px-2.5 py-1.5 text-xs font-semibold text-black">
-                                <CheckCircle2
-                                  size={14}
-                                  className="text-[#047857]"
-                                />
+                              <span className="inline-flex items-center gap-1.5 rounded-lg border border-[#d9f2e4] bg-[#effaf4] px-2.5 py-1.5 text-xs font-semibold text-[#23754b]">
+                                <CheckCircle2 size={14} />
                                 24/7 Emergency
                               </span>
                             )}
 
-                            <span className="inline-flex items-center gap-1.5 rounded-md bg-[#f1f5f9] px-2.5 py-1.5 text-xs font-medium text-black">
-                              <ShieldCheck size={14} />
+                            <span className="inline-flex items-center gap-1.5 rounded-lg border border-[#e4e0f6] bg-[#f8f6ff] px-2.5 py-1.5 text-xs font-medium text-[#625b8b]">
+                              <ShieldCheck size={14} className="text-[#7167eb]" />
                               Insurance Available
                             </span>
-
                           </div>
 
                           {/* Specialties */}
@@ -883,28 +884,26 @@ export default function HospitalsPage() {
                             {hospital.specialties.slice(0, 3).map((item) => (
                               <span
                                 key={item}
-                                className="rounded-full border border-[#e2e8f0] px-2.5 py-1 text-xs text-black"
+                                className="rounded-full border border-[#ebe8f4] bg-[#fbfaff] px-2.5 py-1 text-xs font-medium text-[#6b6880]"
                               >
                                 {item}
                               </span>
                             ))}
 
                             {hospital.specialties.length > 3 && (
-                              <span className="rounded-full border border-[#e2e8f0] px-2.5 py-1 text-xs text-black">
+                              <span className="rounded-full border border-[#e4e0f6] bg-[#f5f3ff] px-2.5 py-1 text-xs font-semibold text-[#7167eb]">
                                 +{hospital.specialties.length - 3} more
                               </span>
                             )}
                           </div>
-
                         </div>
 
                         {/* View Details */}
 
                         <div className="flex flex-col gap-3 sm:col-span-2 sm:flex-row lg:col-span-1 lg:flex-col">
-
                           <Link
                             href={`/hospitals/${hospital.slug}`}
-                            className="inline-flex min-h-[46px] flex-1 items-center justify-center gap-2 rounded-lg bg-[#0878d1] px-4 text-sm font-semibold text-white transition hover:bg-[#0667b5]"
+                            className="inline-flex min-h-[46px] flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#4e44e1] to-[#9122b4] px-4 text-sm font-bold text-white shadow-sm shadow-[#4e44e1]/15 transition duration-200 hover:-translate-y-0.5 hover:shadow-md hover:shadow-[#4e44e1]/20"
                           >
                             View Details
                             <ArrowUpRight size={16} />
@@ -916,89 +915,81 @@ export default function HospitalsPage() {
                             )}`}
                             target="_blank"
                             rel="noreferrer"
-                            className="inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-lg border border-[#dce6f2] bg-white px-4 text-sm font-semibold text-black transition hover:border-[#0878d1] hover:bg-[#f4f9ff]"
+                            className="inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-xl border border-[#ebe8f4] bg-white px-4 text-sm font-semibold text-[#625b80] transition hover:border-[#c9c2f5] hover:bg-[#f8f6ff] hover:text-[#4e44e1]"
                           >
                             <Navigation size={16} />
                             Get Directions
                           </a>
-
                         </div>
-
                       </div>
 
                       {/* Card Footer */}
 
-                      <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#edf1f5] bg-[#fbfdff] px-4 py-3 sm:px-5">
-
-                        <div className="flex items-center gap-2 text-xs font-medium text-black">
-                          <Clock3 size={15} />
-                          {hospital.open ? "Currently listed" : "Check availability"}
+                      <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#f0edf7] bg-[#fdfcff] px-4 py-3 sm:px-5">
+                        <div className="flex items-center gap-2 text-xs font-medium text-[#858097]">
+                          <Clock3 size={15} className="text-[#7167eb]" />
+                          {hospital.open
+                            ? "Currently listed"
+                            : "Check availability"}
                         </div>
 
                         <Link
                           href={`/hospitals/${hospital.slug}`}
-                          className="inline-flex items-center gap-1 text-xs font-semibold text-black transition hover:text-[#0878d1]"
+                          className="inline-flex items-center gap-1 text-xs font-bold text-[#7167eb] transition hover:text-[#9122b4]"
                         >
                           Explore Hospital
                           <ChevronRight size={14} />
                         </Link>
-
                       </div>
                     </article>
                   ))}
-
                 </div>
               ) : (
 
-                /* =================================
-                    NO RESULTS
-                ================================= */
+                /* No Results */
 
-                <div className="rounded-xl border border-[#dce6f2] bg-white px-5 py-16 text-center sm:px-10">
-
-                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#eff6ff] text-[#0878d1]">
+                <div className="rounded-2xl border border-[#ebe8f4] bg-white px-5 py-16 text-center shadow-sm sm:px-10">
+                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#f5f3ff] text-[#7167eb]">
                     <Search size={28} />
                   </div>
 
-                  <h3 className="mt-5 text-xl font-bold text-black">
+                  <h3 className="mt-5 text-xl font-bold text-[#17152b]">
                     No Hospitals Found
                   </h3>
 
-                  <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-black">
-                    We couldn&apos;t find any hospitals matching your
-                    search or selected filters. Try changing your search
-                    or clearing the filters.
+                  <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-[#858097]">
+                    We couldn&apos;t find any hospitals matching your search
+                    or selected filters. Try changing your search or clearing
+                    the filters.
                   </p>
 
                   <button
                     type="button"
                     onClick={clearFilters}
-                    className="mt-6 inline-flex min-h-[46px] items-center justify-center rounded-lg bg-[#0878d1] px-6 text-sm font-semibold text-white transition hover:bg-[#0667b5]"
+                    className="mt-6 inline-flex min-h-[46px] items-center justify-center rounded-xl bg-gradient-to-r from-[#4e44e1] to-[#9122b4] px-6 text-sm font-bold text-white shadow-sm transition hover:shadow-md"
                   >
                     Clear All Filters
                   </button>
-
                 </div>
               )}
 
               {/* Results Footer */}
 
               {filteredHospitals.length > 0 && (
-                <div className="mt-5 rounded-xl border border-[#dce6f2] bg-white px-5 py-4">
-                  <p className="text-center text-sm text-black">
+                <div className="mt-5 rounded-2xl border border-[#ebe8f4] bg-white px-5 py-4">
+                  <p className="text-center text-sm text-[#858097]">
                     Showing{" "}
-                    <span className="font-bold">
+                    <span className="font-bold text-[#17152b]">
                       {filteredHospitals.length}
                     </span>{" "}
                     of{" "}
-                    <span className="font-bold">
+                    <span className="font-bold text-[#17152b]">
                       {hospitals.length}
                     </span>{" "}
                     hospitals
                   </p>
                 </div>
               )}
-
             </div>
           </div>
         </div>

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -55,32 +56,28 @@ export default function Header() {
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 
-  const navClass = (href: string) =>
-    `whitespace-nowrap text-[15px] font-semibold transition-colors duration-200
-    ${
-      isActive(href)
-        ? "text-[#1769D2]"
-        : "text-[#4B5568] hover:text-[#1769D2]"
-    }`;
-
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[#F0F2F5] bg-white">
+    <header className="sticky top-0 z-50 w-full border-b border-[#ebe8f4] bg-white/95 shadow-[0_2px_15px_rgba(78,68,225,0.04)] backdrop-blur-md">
+
       <div className="relative mx-auto flex min-h-[80px] max-w-[1480px] items-center justify-between px-5 sm:px-8 lg:px-8">
 
         {/* LOGO */}
         <Link
           href="/"
           aria-label="HealthCare360 Home"
-          className="flex shrink-0 items-center gap-[7px]"
+          className="group flex shrink-0 items-center gap-[7px]"
         >
           <Heart
             size={29}
             strokeWidth={2}
-            className="shrink-0 text-[#1769D2]"
+            className="shrink-0 text-[#4e44e1] transition-colors duration-300 group-hover:text-[#9122b4]"
           />
 
-          <span className="whitespace-nowrap text-[26px] font-extrabold leading-none tracking-[-1.1px]  sm:text-[28px]">
-            HealthCare<span className="text-[#1769D2]">360</span>
+          <span className="whitespace-nowrap text-[26px] font-extrabold leading-none tracking-[-1.1px] text-black sm:text-[28px]">
+            HealthCare
+            <span className="bg-gradient-to-r from-[#4e44e1] to-[#9122b4] bg-clip-text text-transparent">
+              360
+            </span>
           </span>
         </Link>
 
@@ -95,7 +92,7 @@ export default function Header() {
             setMobileMenuOpen((prev) => !prev);
             setMoreOpen(false);
           }}
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#E2E8F0] text-black transition hover:bg-[#F0F6FF] md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#ddd9ee] text-[#4e44e1] transition-all duration-200 hover:border-[#c8c2eb] hover:bg-[#f5f3ff] md:hidden"
         >
           {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
@@ -104,40 +101,50 @@ export default function Header() {
         <nav
           className={`
             absolute left-0 top-full w-full flex-col gap-1
-            border-b border-[#EEF1F5] bg-white px-5 pb-5 pt-4
+            border-b border-[#ebe8f4] bg-white px-5 pb-5 pt-4
             md:static md:flex md:w-auto md:flex-1 md:flex-row
             md:items-center md:justify-center md:gap-6
             md:border-0 md:bg-transparent md:p-0
             ${
               mobileMenuOpen
-                ? "flex shadow-lg"
+                ? "flex shadow-[0_15px_30px_rgba(78,68,225,0.08)]"
                 : "hidden md:flex"
             }
           `}
         >
+
           {/* MAIN LINKS */}
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              aria-current={isActive(link.href) ? "page" : undefined}
-              className={`
-                rounded-md py-2 text-[15px] font-semibold
-                transition-colors duration-200
-                md:py-0
-                ${
-                  isActive(link.href)
-                    ? "text-[#1769D2]"
-                    : "text-black hover:text-[#1769D2]"
-                }
-              `}
-            >
-              {link.name}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const active = isActive(link.href);
+
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={active ? "page" : undefined}
+                className={`
+                  relative rounded-md py-2 text-[15px] font-semibold
+                  transition-all duration-200 md:py-0
+                  ${
+                    active
+                      ? "bg-gradient-to-r from-[#4e44e1] to-[#9122b4] bg-clip-text text-transparent"
+                      : "text-[#4B5568] hover:bg-gradient-to-r hover:from-[#4e44e1] hover:to-[#9122b4] hover:bg-clip-text hover:text-transparent"
+                  }
+                `}
+              >
+                {link.name}
+
+                {/* ACTIVE UNDERLINE */}
+                {active && (
+                  <span className="absolute -bottom-[7px] left-0 hidden h-[2px] w-full rounded-full bg-gradient-to-r from-[#4e44e1] to-[#9122b4] md:block" />
+                )}
+              </Link>
+            );
+          })}
 
           {/* MORE DROPDOWN */}
           <div className="relative" ref={dropdownRef}>
+
             <button
               type="button"
               onClick={() => setMoreOpen((prev) => !prev)}
@@ -145,12 +152,12 @@ export default function Header() {
               aria-haspopup="true"
               className={`
                 flex w-full items-center gap-2 rounded-md py-2
-                text-[15px] font-semibold transition-colors
-                duration-200 md:w-auto md:py-0
+                text-[15px] font-semibold transition-all duration-200
+                md:w-auto md:py-0
                 ${
                   moreLinks.some((link) => isActive(link.href))
-                    ? "text-[#1769D2]"
-                    : "text-[#4B5568] hover:text-[#1769D2]"
+                    ? "bg-gradient-to-r from-[#4e44e1] to-[#9122b4] bg-clip-text text-transparent"
+                    : "text-[#4B5568] hover:bg-gradient-to-r hover:from-[#4e44e1] hover:to-[#9122b4] hover:bg-clip-text hover:text-transparent"
                 }
               `}
             >
@@ -160,7 +167,9 @@ export default function Header() {
                 size={14}
                 strokeWidth={1.8}
                 className={`transition-transform duration-200 ${
-                  moreOpen ? "rotate-180" : ""
+                  moreOpen
+                    ? "rotate-180 text-[#9122b4]"
+                    : "text-[#697386]"
                 }`}
               />
             </button>
@@ -169,42 +178,53 @@ export default function Header() {
             {moreOpen && (
               <div
                 className="
-                  relative mt-2 w-full rounded-lg border
-                  border-[#E8EDF3] bg-white p-2 shadow-lg
+                  relative mt-2 w-full rounded-xl border
+                  border-[#e7e3f2] bg-white p-2
+                  shadow-[0_15px_35px_rgba(78,68,225,0.12)]
                   md:absolute md:left-0 md:top-full md:mt-4 md:w-48
                 "
               >
-                {moreLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMoreOpen(false)}
-                    className={`
-                      block rounded-md px-4 py-3 text-sm
-                      font-medium transition-colors
-                      ${
-                        isActive(link.href)
-                          ? "bg-[#F0F6FF] text-[#1769D2]"
-                          : "text-[#4B5568] hover:bg-[#F0F6FF] hover:text-[#1769D2]"
-                      }
-                    `}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
+
+                {/* DROPDOWN TOP ACCENT */}
+                <div className="absolute left-2 right-2 top-0 h-[2px] rounded-full bg-gradient-to-r from-[#4e44e1] to-[#9122b4]" />
+
+                {moreLinks.map((link) => {
+                  const active = isActive(link.href);
+
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMoreOpen(false)}
+                      className={`
+                        block rounded-lg px-4 py-3 text-sm
+                        font-medium transition-all duration-200
+                        ${
+                          active
+                            ? "bg-[#f3f1ff] bg-gradient-to-r from-[#4e44e1] to-[#9122b4] bg-clip-text text-transparent"
+                            : "text-[#4B5568] hover:bg-[#f5f3ff] hover:text-[#4e44e1]"
+                        }
+                      `}
+                    >
+                      {link.name}
+                    </Link>
+                  );
+                })}
               </div>
             )}
           </div>
 
           {/* MOBILE AUTH BUTTONS */}
-          <div className="mt-3 flex gap-3 border-t border-[#EEF1F5] pt-4 md:hidden">
+          <div className="mt-3 flex gap-3 border-t border-[#ebe8f4] pt-4 md:hidden">
+
             <Link
               href="/login"
               className="
                 flex min-h-[44px] flex-1 items-center justify-center
-                rounded-[9px] border border-[#D7E5FA] px-5
-                text-sm font-bold text-[#1769D2]
-                transition hover:bg-[#F0F6FF]
+                rounded-[9px] border border-[#d8d3f0] bg-white
+                px-5 text-sm font-bold text-[#4e44e1]
+                transition-all duration-200
+                hover:border-[#4e44e1] hover:bg-[#f5f3ff]
               "
             >
               Login
@@ -214,25 +234,31 @@ export default function Header() {
               href="/register"
               className="
                 flex min-h-[44px] flex-1 items-center justify-center
-                rounded-[9px] bg-[#1769D2] px-5
-                text-sm font-bold text-white
-                transition hover:bg-[#1259B5]
+                rounded-[9px] bg-gradient-to-r from-[#4e44e1] to-[#9122b4]
+                px-5 text-sm font-bold text-white
+                shadow-[0_7px_18px_rgba(78,68,225,0.20)]
+                transition-all duration-200
+                hover:shadow-[0_10px_24px_rgba(145,34,180,0.25)]
               "
             >
               Sign Up
             </Link>
+
           </div>
         </nav>
 
         {/* DESKTOP AUTH BUTTONS */}
         <div className="hidden shrink-0 items-center gap-[14px] md:flex">
+
           <Link
             href="/login"
             className="
               inline-flex h-[44px] min-w-[89px] items-center
-              justify-center rounded-[9px] border border-[#D7E5FA]
-              px-5 text-[15px] font-bold text-[#1769D2]
-              transition-colors hover:bg-[#F0F6FF]
+              justify-center rounded-[9px]
+              border border-[#d8d3f0] bg-white
+              px-5 text-[15px] font-bold text-[#4e44e1]
+              transition-all duration-200
+              hover:border-[#4e44e1] hover:bg-[#f5f3ff]
             "
           >
             Login
@@ -242,13 +268,18 @@ export default function Header() {
             href="/register"
             className="
               inline-flex h-[44px] min-w-[105px] items-center
-              justify-center rounded-[9px] bg-[#1769D2]
+              justify-center rounded-[9px]
+              bg-gradient-to-r from-[#4e44e1] to-[#9122b4]
               px-5 text-[15px] font-bold text-white
-              shadow-sm transition-colors hover:bg-[#1259B5]
+              shadow-[0_7px_18px_rgba(78,68,225,0.18)]
+              transition-all duration-200
+              hover:-translate-y-[1px]
+              hover:shadow-[0_10px_25px_rgba(145,34,180,0.25)]
             "
           >
             Sign Up
           </Link>
+
         </div>
 
       </div>
