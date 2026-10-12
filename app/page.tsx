@@ -699,7 +699,7 @@ export default function Home()
         {/* SEO-FRIENDLY DESCRIPTION */}
         <p className="mt-[12px] max-w-3xl text-[15px] leading-7 text-[#536078] sm:text-[17px]">
           Find experienced doctors across different medical specialties
-          and locations with DocLister. Explore doctor profiles to learn
+          and location with DocLister. Explore doctor profiles to learn
           about their qualifications, clinical experience, areas of
           expertise, consultation fees, clinic or hospital affiliations,
           patient reviews, and appointment options.
