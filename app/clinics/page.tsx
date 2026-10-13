@@ -74,7 +74,7 @@ const clinics = [
     specialty: "Dental",
     description: " Dental Care",
     rating: 4.9,
-    reviews: 120,
+    reviews: 130,
     location: "Noida, Sector 18",
     address: "Sector 18, Noida, Uttar Pradesh",
     openingHours: "9:00 AM - 8:00 PM",
