@@ -72,7 +72,7 @@ const clinics = [
     id: 1,
     name: "Smile Dental Clinic",
     specialty: "Dental",
-    description: "Complete Dental Care",
+    description: " Dental Care",
     rating: 4.9,
     reviews: 120,
     location: "Noida, Sector 18",
@@ -87,7 +87,7 @@ const clinics = [
   {
     id: 2,
     name: "Skin Care Clinic",
-    specialty: "Skin & Hair",
+    specialty: "Skin & Hair care",
     description: "Dermatology & Aesthetics",
     rating: 4.8,
     reviews: 96,
