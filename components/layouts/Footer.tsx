@@ -183,9 +183,9 @@ export default function Footer() {
 
                 <div>
                   <h2 className="text-2xl font-extrabold tracking-tight text-white">
-                    HealthCare
+                    Doc
                     <span className="bg-gradient-to-r from-[#8f86ff] to-[#e0a0ff] bg-clip-text text-transparent">
-                      360
+                      Lister
                     </span>
                   </h2>
 

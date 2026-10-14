@@ -74,9 +74,9 @@ export default function Header() {
           />
 
           <span className="whitespace-nowrap text-[26px] font-extrabold leading-none tracking-[-1.1px] text-black sm:text-[28px]">
-            HealthCare
+            Doc
             <span className="bg-gradient-to-r from-[#4e44e1] to-[#9122b4] bg-clip-text text-transparent">
-              360
+              Lister
             </span>
           </span>
         </Link>
