@@ -110,7 +110,7 @@ export default function ContactPage() {
 
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#68677e] sm:text-xl">
               Have a question, need assistance, or want to get in touch with
-              Doclister? Contact us by phone or WhatsApp, or send us a message
+              Doclister? Contact us by phone or WhatsApp or send us a message
               using the form below.
             </p>
 
