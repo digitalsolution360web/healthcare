@@ -17,9 +17,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "HealthCare360 | Your Health, Our Priority",
+  title: "Doclister | Healthcare Directory & Medical Providers",
   description:
-    "Find trusted doctors, clinics, hospitals and lab tests with HealthCare360.",
+    "Discover healthcare providers, medical professionals, and healthcare services with Doclister. Explore healthcare listings and find the information you need.",
 };
 
 export default function RootLayout({

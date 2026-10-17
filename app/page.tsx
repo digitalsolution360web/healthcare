@@ -154,12 +154,12 @@ export default function Home()
           <div className="relative h-full w-full overflow-hidden rounded-[22px] bg-[#f4f2ff]">
 
             <Image
-              src="/images/doctor-hero.jpg"
+              src="/home.webp"
               alt="Healthcare professional providing patient care at a medical clinic"
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover object-center"
+              className="object-contain object-center"
             />
 
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-[#4e44e1]/10 via-transparent to-[#9122b4]/20" />
@@ -733,7 +733,7 @@ export default function Home()
           fee: "₹800 consultation fee",
           rating: "4.9",
           reviews: "120 reviews",
-          image: "/images/doctors/dr-priya-sharma.jpg",
+          image: "/dr/priya-sharma.webp",
           href: "/doctors/dr-priya-sharma",
           description:
             "Explore cardiology services and information about heart health consultations.",
@@ -745,7 +745,7 @@ export default function Home()
           fee: "₹700 consultation fee",
           rating: "4.8",
           reviews: "95 reviews",
-          image: "/images/doctors/dr-rahul-mehta.jpg",
+          image: "/dr/rahul.webp",
           href: "/doctors/dr-rahul-mehta",
           description:
             "Learn about dermatology consultations and skin health services.",
@@ -757,7 +757,7 @@ export default function Home()
           fee: "₹900 consultation fee",
           rating: "4.9",
           reviews: "150 reviews",
-          image: "/images/doctors/dr-neha-gupta.jpg",
+          image: "/dr/neha-gupta.webp",
           href: "/doctors/dr-neha-gupta",
           description:
             "Explore women's health consultations and gynecology services.",
