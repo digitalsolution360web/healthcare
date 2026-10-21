@@ -43,6 +43,11 @@ interface Listing {
   address: string;
   image: string;
   slug: string;
+  state_name?: string | null;
+  city_name?: string | null;
+  area_name?: string | null;
+  category_name?: string | null;
+  sub_category_name?: string | null;
 }
 
 /* Listing + static dummy display fields */
@@ -85,6 +90,11 @@ function normalizeListing(raw: Record<string, any>): DisplayListing {
     address: raw.address ?? "",
     image: raw.image ?? "/images/clinics/placeholder.jpg",
     slug: raw.slug ?? String(id),
+    state_name: raw.state_name ?? "",
+    city_name: raw.city_name ?? "",
+    area_name: raw.area_name ?? "",
+    category_name: raw.category_name ?? "",
+    sub_category_name: raw.sub_category_name ?? "",
 
     /* ---------- STATIC DUMMY ---------- */
     rating: 4.5 + (numericId % 5) * 0.1,
@@ -660,9 +670,9 @@ export default function CategoryLayout({ data }: { data: Category }) {
                 <div className="mt-4 space-y-4">
                   {filteredListings.map((clinic) => {
                     const fullLocation = [
-                      clinic.area,
-                      clinic.city,
-                      clinic.state,
+                      clinic.area_name,
+                      clinic.city_name,
+                      clinic.state_name,
                     ]
                       .filter(Boolean)
                       .join(", ");
@@ -691,12 +701,12 @@ export default function CategoryLayout({ data }: { data: Category }) {
                             <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                               <div className="min-w-0">
                                 <h2 className="text-[19px] font-bold leading-[27px] tracking-[-0.25px] text-[#17152b] transition group-hover:text-[#4e44e1] sm:text-[20px]">
-                                  {clinic.name}
+                                 {clinic.name}
                                 </h2>
 
-                                {clinic.about && (
+                                {clinic.sub_category_name && (
                                   <p className="mt-1 text-[14px] font-medium text-[#6b6880]">
-                                    Subcategory name
+                                    {clinic.sub_category_name}
                                   </p>
                                 )}
                               </div>
