@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import pool from '@/lib/db';
+import pool from '../../lib/db';
 import type { RowDataPacket } from 'mysql2';
 import CategoryLayout from "./categories";
 
@@ -30,7 +30,6 @@ export default async function CatchAllPage({ params }: PageProps) {
   'SELECT * FROM categories WHERE slug = ? LIMIT 1',
   [segment]
     );
-
     if (categories.length > 0) {
       return <CategoryLayout data={categories[0]} />;
     }
@@ -42,3 +41,4 @@ export default async function CatchAllPage({ params }: PageProps) {
  
   notFound();
 }
+
