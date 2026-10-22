@@ -328,10 +328,10 @@ export default function Footer() {
                     </h4>
 
                     <a
-                      href="mailto:info@example.com"
+                      href="mailto:Info@doclister.com"
                       className="mt-1 block break-all text-sm text-[#b7b7cc] transition-colors hover:text-white"
                     >
-                      info@example.com
+                     Info@doclister.com
                     </a>
                   </div>
                 </div>
