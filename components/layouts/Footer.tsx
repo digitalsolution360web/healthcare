@@ -17,11 +17,13 @@ import {
   ArrowUp,
 } from "lucide-react";
 
+
 import {
   FaFacebookF,
   FaInstagram,
   FaYoutube,
   FaLinkedinIn,
+   FaWhatsapp,
 } from "react-icons/fa";
 
 const features = [
@@ -289,7 +291,7 @@ export default function Footer() {
                     </h4>
 
                     <p className="mt-1 text-sm leading-6 text-[#b7b7cc]">
-                      Add your clinic address here
+                     New Colony Basdevpur, Karkend, Kusunda, Dhanbad, Jharkhand 828116
                     </p>
                   </div>
                 </div>
@@ -306,10 +308,10 @@ export default function Footer() {
                     </h4>
 
                     <a
-                      href="tel:+910000000000"
+                      href="tel:+919990556217"
                       className="mt-1 block text-sm text-[#b7b7cc] transition-colors hover:text-white"
                     >
-                      +91 XXXXX XXXXX
+                      +91 99905 56217
                     </a>
                   </div>
                 </div>
@@ -356,7 +358,7 @@ export default function Footer() {
             <div className="flex flex-col items-center justify-between gap-5 text-center sm:flex-row sm:text-left">
 
               <p className="text-xs leading-6 text-[#9292ac]">
-                © {currentYear} HealthCare360. All rights reserved.
+                © {currentYear} DocLister. All rights reserved.
               </p>
 
               <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-xs text-[#9292ac]">
@@ -394,6 +396,23 @@ export default function Footer() {
 
         </div>
       </section>
+       
+      {/* FLOATING WHATSAPP BUTTON */}
+      <a
+        href="https://wa.me/+919990556217?text=Hello%20Doclister%2C%20I%20need%20help%20with%20healthcare%20services."
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat with Doclister on WhatsApp"
+        className="fixed bottom-6 right-5 z-[9999] flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/20 transition-all duration-300 hover:scale-110 hover:bg-[#20BA5A] sm:bottom-8 sm:right-8 sm:h-16 sm:w-16"
+      >
+        <FaWhatsapp size={34} />
+
+        <span className="absolute -right-1 -top-1 flex h-4 w-4">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#25D366] opacity-50" />
+          <span className="relative inline-flex h-4 w-4 rounded-full border-2 border-white bg-[#25D366]" />
+        </span>
+      </a>
     </footer>
+    
   );
 }
