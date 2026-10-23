@@ -12,12 +12,14 @@ interface ListingRow extends RowDataPacket {
   city: string | null;
   area: string | null;
   address: string | null;
+  phone: string | null;
   image: string | null;
   slug: string | null;
   state_name: string | null;
   city_name: string | null;
   area_name: string | null;
   category_name: string | null;
+  category_slug: string | null;
   sub_category_name: string | null;
 }
 
@@ -29,6 +31,7 @@ const SELECT_FIELDS = `
   listings.state,
   listings.city,
   listings.area,
+  listings.phone,
   listings.address,
   listings.image,
   listings.slug,
@@ -36,6 +39,7 @@ const SELECT_FIELDS = `
   c.city AS city_name,
   m.metrocity AS area_name,
   cat.name AS category_name,
+  cat.slug AS category_slug,
   subcat.name AS sub_category_name
 `;
 
@@ -63,12 +67,14 @@ function formatListing(r: ListingRow) {
     city: r.city ?? "",
     area: r.area ?? "",
     address: r.address ?? "",
+    phone: r.phone ?? "",
     image: r.image || "/images/clinics/placeholder.jpg",
     slug: r.slug ?? String(r.id),
     state_name: r.state_name ?? "",
     city_name: r.city_name ?? "",
     area_name: r.area_name ?? "",
     category_name: r.category_name ?? "",
+    category_slug: r.category_slug ?? "",
     sub_category_name: r.sub_category_name ?? "",
   };
 }

@@ -35,11 +35,13 @@ interface Listing {
   area: string;
   address: string;
   image: string;
+  phone:string;
   slug: string;
   state_name?: string | null;
   city_name?: string | null;
   area_name?: string | null;
   category_name?: string | null;
+  category_slug?: string | null;
   sub_category_name?: string | null;
 }
 
@@ -255,11 +257,11 @@ const fullLocation = [
 
   const tabs: TabName[] = [
     "Overview",
-    "Doctors",
-    "Services",
-    "Gallery",
-    "Location",
-    "Reviews",
+    // "Doctors",
+    // "Services",
+    // "Gallery",
+    // "Location",
+    // "Reviews",
   ];
 
   const renderTabContent = () => {
@@ -601,16 +603,16 @@ const fullLocation = [
           <ChevronRight size={14} className="text-[#b0abc5]" />
 
           <Link
-            href="/clinics"
+            href={`/${listing.category_slug}`}
             className="text-[#77748c] transition hover:text-[#4e44e1]"
           >
-            Clinics
+            {listing.category_name}
           </Link>
 
           <ChevronRight size={14} className="text-[#b0abc5]" />
 
           <span className="truncate font-semibold text-[#17152b]">
-            {clinic.name}
+            {listing.name}
           </span>
         </nav>
       </div>
@@ -626,8 +628,8 @@ const fullLocation = [
 
           <div className="relative h-[220px] w-full shrink-0 overflow-hidden rounded-2xl border border-[#ebe8f4] bg-[#f1edff] shadow-sm sm:h-[190px] sm:w-[240px] lg:h-[220px] lg:w-[280px]">
             <Image
-              src={clinic.image}
-              alt={clinic.name}
+              src={listing.image}
+              alt={`${listing.name} ${listing.city_name}`}
               fill
               priority
               sizes="(max-width: 640px) 100vw, 280px"
@@ -803,7 +805,7 @@ const fullLocation = [
                 </h2>
 
                 <a
-                  href={getDirectionsUrl(clinic.fullAddress)}
+                  href={getDirectionsUrl(fullLocation || listing.address)}
                   target="_blank"
                   rel="noreferrer"
                   className="text-xs font-bold text-[#4e44e1] hover:text-[#9122b4]"
@@ -842,7 +844,7 @@ const fullLocation = [
                 </div>
 
                 <div className="absolute bottom-2 left-2 rounded-lg border border-[#ebe8f4] bg-white px-2.5 py-1.5 text-[11px] font-semibold text-[#17152b] shadow-sm">
-                  {clinic.location}
+                  {fullLocation || listing.address}
                 </div>
               </div>
 
@@ -854,12 +856,12 @@ const fullLocation = [
                   />
 
                   <p className="text-[13px] leading-6 text-[#4B5568]">
-                    {clinic.fullAddress}
+                    {fullLocation || listing.address}
                   </p>
                 </div>
 
                 <a
-                  href={getDirectionsUrl(clinic.fullAddress)}
+                  href={getDirectionsUrl(fullLocation || listing.address)}
                   target="_blank"
                   rel="noreferrer"
                   className="mt-4 inline-flex h-10 w-full items-center justify-center gap-2 rounded-xl border border-[#ddd9ee] text-[13px] font-semibold text-[#4e44e1] transition hover:border-[#cfc5ff] hover:bg-[#f5f3ff]"
@@ -923,21 +925,21 @@ const fullLocation = [
                 </div>
 
                 <h2 className="text-[17px] font-bold text-[#17152b]">
-                  Contact Clinic
+                  Contact {listing.category_name}
                 </h2>
               </div>
 
               <p className="mt-3 text-[13px] leading-6 text-[#4B5568]">
-                For appointments and clinic-related enquiries,
-                contact the clinic directly.
+                For appointments and {listing.sub_category_name?.toLowerCase()}-related enquiries,
+                contact the {listing.category_name?.toLowerCase()} directly.
               </p>
 
               <a
-                href={`tel:${clinic.phone.replace(/\s/g, "")}`}
+                href={`tel:${listing.phone}`}
                 className={`${primaryButtonClass} mt-4 h-11 w-full px-3 text-[13px]`}
               >
                 <Phone size={16} />
-                {clinic.phone}
+                {listing.phone}
               </a>
             </section>
           </aside>
