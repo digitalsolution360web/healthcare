@@ -684,7 +684,7 @@ export default function CategoryLayout({ data }: { data: Category }) {
                       >
                         <div className="flex flex-col gap-4 sm:flex-row sm:gap-5">
                           <Link
-                            href={`/clinics/${clinic.slug}`}
+                            href={clinic.slug}
                             aria-label={`View ${clinic.name} profile`}
                             className="relative h-[190px] w-full shrink-0 overflow-hidden rounded-xl border border-[#ebe8f4] bg-[#f5f3fa] sm:h-[145px] sm:w-[150px] lg:h-[150px] lg:w-[155px]"
                           >
@@ -774,7 +774,7 @@ export default function CategoryLayout({ data }: { data: Category }) {
                             )}
 
                             <Link
-                              href={`/clinics/${clinic.slug}`}
+                              href={clinic.slug}
                               className="group/link mt-3 inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#4e44e1] transition hover:text-[#9122b4]"
                             >
                               View Clinic Profile
@@ -811,14 +811,14 @@ export default function CategoryLayout({ data }: { data: Category }) {
 
                           <div className="flex flex-wrap items-center gap-2.5">
                             <Link
-                              href={`/clinics/${clinic.slug}`}
+                              href={clinic.slug}
                               className="inline-flex h-[42px] flex-1 items-center justify-center rounded-lg border border-[#d9d3f2] px-4 text-[13px] font-semibold text-[#4e44e1] transition hover:border-[#4e44e1] hover:bg-[#f5f3ff] sm:flex-none"
                             >
                               View Profile
                             </Link>
 
                             <Link
-                              href={`/appointments/book?clinic=${clinic.slug}`}
+                              href={`/appointments?book=${clinic.slug}`}
                               className="inline-flex h-[42px] items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#4e44e1] to-[#9122b4] px-5 text-sm font-semibold text-white shadow-sm shadow-[#4e44e1]/10 transition hover:brightness-110"
                             >
                               Book Appointment
