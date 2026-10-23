@@ -12,6 +12,9 @@ interface ListingRow extends RowDataPacket {
   city: string | null;
   area: string | null;
   address: string | null;
+  experience:number | null;
+  fees:number | null;
+  degrees:string | null;
   phone: string | null;
   image: string | null;
   slug: string | null;
@@ -32,6 +35,9 @@ const SELECT_FIELDS = `
   listings.city,
   listings.area,
   listings.phone,
+  listings.experience,
+  listings.fees,
+  listings.degrees,
   listings.address,
   listings.image,
   listings.slug,
@@ -63,6 +69,9 @@ function formatListing(r: ListingRow) {
     category_id: r.category_id,
     name: r.name ?? "",
     about: r.about ?? "",
+    experience:r.experience ?? "",
+    fees:r.fees ?? "",
+    degrees:r.degrees ?? "",
     state: r.state ?? "",
     city: r.city ?? "",
     area: r.area ?? "",
@@ -78,6 +87,34 @@ function formatListing(r: ListingRow) {
     sub_category_name: r.sub_category_name ?? "",
   };
 }
+
+async function getDegreeNames(degrees: string | null) {
+  if (!degrees) return "";
+
+  const degreeIds = degrees
+    .split(",")
+    .map((id) => Number(id.trim()))
+    .filter((id) => Number.isInteger(id) && id > 0);
+
+  if (degreeIds.length === 0) return "";
+
+  const [rows] = await pool.query<RowDataPacket[]>(
+    `SELECT id, name
+     FROM degrees
+     WHERE id IN (?)`,
+    [degreeIds]
+  );
+
+  const degreeMap = new Map(
+    rows.map((row) => [Number(row.id), row.name])
+  );
+
+  return degreeIds
+    .map((id) => degreeMap.get(id))
+    .filter(Boolean)
+    .join(", ");
+}
+
 
 export async function GET(req: NextRequest) {
   try {
@@ -162,7 +199,12 @@ export async function GET(req: NextRequest) {
     `;
 
     const [rows] = await pool.query<ListingRow[]>(sql, params);
-    const data = rows.map(formatListing);
+    const data = await Promise.all(
+      rows.map(async (row) => ({
+        ...formatListing(row),
+        degrees: await getDegreeNames(row.degrees),
+      }))
+    );
 
     return NextResponse.json(data, {
       headers: {

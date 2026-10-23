@@ -20,6 +20,8 @@ import {
   Stethoscope,
   HeartPulse,
   AlertTriangle,
+  BriefcaseMedical,
+  CalendarCheck,
 } from "lucide-react";
 
 /* =========================================
@@ -40,6 +42,9 @@ interface Listing {
   state: string;
   city: string;
   area: string;
+  experience:number;
+  fees:number;
+  degrees: string;
   address: string;
   image: string;
   slug: string;
@@ -87,6 +92,9 @@ function normalizeListing(raw: Record<string, any>): DisplayListing {
     state: raw.state ?? "",
     city: raw.city ?? "",
     area: raw.area ?? "",
+    degrees:raw.degrees ?? "",
+    experience:raw.experience ?? "",
+    fees:raw.fees ?? "",
     address: raw.address ?? "",
     image: raw.image ?? "/images/clinics/placeholder.jpg",
     slug: raw.slug ?? String(id),
@@ -676,7 +684,182 @@ export default function CategoryLayout({ data }: { data: Category }) {
                     ]
                       .filter(Boolean)
                       .join(", ");
+                      if (clinic.category_name === "Doctors") {
+                           return (
+                    <article
+                    key={clinic.id}
+                    className="group overflow-hidden rounded-2xl border border-[#e7e3f2] bg-white p-4 shadow-[0_4px_18px_rgba(40,35,90,0.025)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#cfc8fa] hover:shadow-[0_14px_35px_rgba(78,68,225,0.08)] sm:p-5 lg:p-6"
+                  >
+                    {/* TOP ROW */}
+                    <div className="flex flex-col gap-5 sm:flex-row">
 
+                      {/* IMAGE */}
+                      <Link
+                        href={clinic.slug}
+                        aria-label={`View ${clinic.name}'s profile`}
+                        className="relative h-[175px] w-[140px] shrink-0 self-start overflow-hidden rounded-xl border border-[#eeeaf7] bg-[#f1eff9] sm:h-[155px] sm:w-[125px] lg:h-[165px] lg:w-[135px]"
+                      >
+                        <Image
+                          src={clinic.image}
+                          alt={clinic.name}
+                          fill
+                          sizes="(max-width: 640px) 140px, 135px"
+                          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                        />
+                      </Link>
+
+                      {/* DETAILS */}
+                      <div className="min-w-0 flex-1">
+
+                        {/* NAME + STATUS */}
+                        <div className="flex flex-wrap items-start justify-between gap-3">
+                          <div>
+                            <Link
+                              href={clinic.slug}
+                              className="text-xl font-extrabold tracking-tight text-[#171526] transition-colors hover:text-[#4e44e1] sm:text-[22px]"
+                            >
+                              {clinic.name}
+                            </Link>
+
+                            <div className="mt-2 inline-flex items-center rounded-lg bg-gradient-to-r from-[#f0edff] to-[#f9edff] px-3 py-1.5 text-xs font-bold text-[#4e44e1]">
+                              <BriefcaseMedical
+                                size={14}
+                                className="mr-2"
+                              />
+                              {clinic.sub_category_name}
+                            </div>
+                          </div>
+
+                          {clinic.available ? (
+                            <span className="inline-flex shrink-0 items-center gap-2 rounded-full border border-[#d5f3e4] bg-[#f0fcf6] px-3 py-1.5 text-[11px] font-bold text-[#16825d]">
+                              <span className="h-1.5 w-1.5 rounded-full bg-[#22a574]" />
+                              Available Today
+                            </span>
+                            
+                          ) : (
+                            
+                            
+                            <span className="inline-flex shrink-0 items-center gap-2 rounded-full border border-[#eee3f2] bg-[#faf5fc] px-3 py-1.5 text-[11px] font-semibold text-[#77758c]">
+                              Availability Unconfirmed
+                            </span>
+                          )}
+                        </div>
+
+                        {/* EXPERIENCE */}
+                        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-[#68677e]">
+                          <span className="inline-flex items-center gap-2">
+                            <BriefcaseMedical
+                              size={15}
+                              className="text-[#8b83e9]"
+                            />
+                            {clinic.experience}+ years experience
+                          </span>
+
+                          <span className="hidden h-4 w-px bg-[#e7e3f2] sm:block" />
+
+                          <span>{`${clinic.degrees} (${clinic.sub_category_name})`}</span>
+                        </div>
+
+                        {/* PROFILE LINK */}
+                        <Link
+                          href={clinic.slug}
+                          className="group/link mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#4e44e1] transition-colors hover:text-[#9122b4]"
+                        >
+                          View Doctor Profile
+
+                          <ArrowRight
+                            size={16}
+                            className="transition-transform group-hover/link:translate-x-1"
+                          />
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* DIVIDER */}
+                    <div className="my-5 border-t border-[#eeeaf6] sm:ml-[145px]" />
+
+                    {/* RATING + LOCATION */}
+                    <div className="flex flex-wrap items-center gap-x-6 gap-y-3 sm:ml-[145px] lg:ml-[155px]">
+
+                      {/* RATING */}
+                      <div className="flex items-center gap-2">
+                        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#fff7e6]">
+                          <Star
+                            size={16}
+                            fill="#f5ad35"
+                            stroke="#f5ad35"
+                          />
+                        </span>
+
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-sm font-extrabold text-[#171526]">
+                            {clinic.rating ?? "4.6"}
+                          </span>
+
+                          <span className="text-xs text-[#9996ad]">
+                            ({clinic.reviews ?? "46"} reviews)
+                          </span>
+                        </div>
+                      </div>
+
+                      <span className="hidden h-5 w-px bg-[#e7e3f2] sm:block" />
+
+                      {/* LOCATION */}
+                      <div className="inline-flex items-center gap-2 text-sm text-[#68677e]">
+                        <MapPin
+                          size={16}
+                          className="shrink-0 text-[#8b83e9]"
+                        />
+
+                        {fullLocation || clinic.address}
+                      </div>
+                    </div>
+
+                    {/* DIVIDER */}
+                    <div className="my-5 border-t border-[#eeeaf6] sm:ml-[145px] lg:ml-[155px]" />
+
+                    {/* FEE + BUTTONS */}
+                    <div className="flex flex-col gap-4 sm:ml-[145px] sm:flex-row sm:items-center sm:justify-between lg:ml-[155px]">
+
+                      {/* FEE */}
+                      <div>
+                        <p className="text-xs font-medium text-[#9996ad]">
+                          Consultation Fee
+                        </p>
+
+                        <div className="mt-1 flex items-baseline gap-1.5">
+                          <span className="text-2xl font-extrabold tracking-tight text-[#171526]">
+                            ₹{clinic.fees}
+                          </span>
+
+                          <span className="text-xs text-[#85829e]">
+                            / visit
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* ACTIONS */}
+                      <div className="flex flex-wrap gap-2.5">
+                        <Link
+                          href={clinic.slug}
+                          className="inline-flex h-11 items-center justify-center rounded-xl border border-[#dcd6f4] bg-white px-4 text-xs font-bold text-[#4e44e1] transition-all hover:border-[#4e44e1] hover:bg-[#f6f4ff] sm:px-5 sm:text-sm"
+                        >
+                          View Profile
+                        </Link>
+
+                        <Link
+                          href={`/appointments?book=${clinic.slug}`}
+                          className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#4e44e1] to-[#9122b4] px-4 text-xs font-bold text-white shadow-[0_5px_14px_rgba(78,68,225,0.17)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(145,34,180,0.25)] sm:px-5 sm:text-sm"
+                        >
+                          <CalendarCheck size={16} />
+                          Book Appointment
+                          <ArrowRight size={15} />
+                        </Link>
+                      </div>
+                    </div>
+                  </article>)
+                      }
+                    
                     return (
                       <article
                         key={clinic.id}
@@ -827,7 +1010,8 @@ export default function CategoryLayout({ data }: { data: Category }) {
                           </div>
                         </div>
                       </article>
-                    );
+                    )
+                    
                   })}
 
                   {filteredListings.length === 0 && (
