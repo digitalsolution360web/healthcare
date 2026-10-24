@@ -19,6 +19,10 @@ interface Listing extends RowDataPacket {
   city: string;
   area: string;
   address: string;
+  experience:number;
+  fees:number;
+  services: string[];
+  degrees: string;
   image: string;
   phone: string;
   slug: string;

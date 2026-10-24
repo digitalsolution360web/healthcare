@@ -700,7 +700,7 @@ export default function CategoryLayout({ data }: { data: Category }) {
                         className="relative h-[175px] w-[140px] shrink-0 self-start overflow-hidden rounded-xl border border-[#eeeaf7] bg-[#f1eff9] sm:h-[155px] sm:w-[125px] lg:h-[165px] lg:w-[135px]"
                       >
                         <Image
-                          src={clinic.image}
+                          src={clinic.image || "/images/clinics/placeholder.jpg"}
                           alt={clinic.name}
                           fill
                           sizes="(max-width: 640px) 140px, 135px"
@@ -721,13 +721,6 @@ export default function CategoryLayout({ data }: { data: Category }) {
                               {clinic.name}
                             </Link>
 
-                            <div className="mt-2 inline-flex items-center rounded-lg bg-gradient-to-r from-[#f0edff] to-[#f9edff] px-3 py-1.5 text-xs font-bold text-[#4e44e1]">
-                              <BriefcaseMedical
-                                size={14}
-                                className="mr-2"
-                              />
-                              {clinic.sub_category_name}
-                            </div>
                           </div>
 
                           {clinic.available ? (
@@ -744,6 +737,13 @@ export default function CategoryLayout({ data }: { data: Category }) {
                             </span>
                           )}
                         </div>
+                        <div className="mt-2 inline-flex items-center rounded-lg bg-gradient-to-r from-[#f0edff] to-[#f9edff] px-3 py-1.5 text-xs font-bold text-[#4e44e1]">
+                              <BriefcaseMedical
+                                size={14}
+                                className="mr-2"
+                              />
+                              {clinic.sub_category_name}
+                            </div>
 
                         {/* EXPERIENCE */}
                         <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-[#68677e]">

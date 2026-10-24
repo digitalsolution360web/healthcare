@@ -15,6 +15,9 @@ interface ListingRow extends RowDataPacket {
   experience:number | null;
   fees:number | null;
   degrees:string | null;
+  services:string | null;
+  degree_names: string | null;
+  service_names: string | null;
   phone: string | null;
   image: string | null;
   slug: string | null;
@@ -39,6 +42,7 @@ const SELECT_FIELDS = `
   listings.fees,
   listings.degrees,
   listings.address,
+  listings.services,
   listings.image,
   listings.slug,
   s.name AS state_name,
@@ -46,7 +50,25 @@ const SELECT_FIELDS = `
   m.metrocity AS area_name,
   cat.name AS category_name,
   cat.slug AS category_slug,
-  subcat.name AS sub_category_name
+  subcat.name AS sub_category_name,
+  (
+    SELECT GROUP_CONCAT(
+      d.name
+      ORDER BY FIND_IN_SET(d.id, listings.degrees)
+      SEPARATOR ', '
+    )
+    FROM degrees AS d
+    WHERE FIND_IN_SET(d.id, listings.degrees)
+  ) AS degree_names,
+   (
+  SELECT GROUP_CONCAT(
+    s.name
+    ORDER BY FIND_IN_SET(s.id, listings.services)
+    SEPARATOR ', '
+  )
+  FROM services AS s
+  WHERE FIND_IN_SET(s.id, listings.services)
+) AS service_names
 `;
 
 const JOINS = `
@@ -71,7 +93,10 @@ function formatListing(r: ListingRow) {
     about: r.about ?? "",
     experience:r.experience ?? "",
     fees:r.fees ?? "",
-    degrees:r.degrees ?? "",
+    degrees: r.degree_names ?? "",
+    services: r.service_names
+        ? r.service_names.split(", ")
+        : [],
     state: r.state ?? "",
     city: r.city ?? "",
     area: r.area ?? "",
@@ -86,33 +111,6 @@ function formatListing(r: ListingRow) {
     category_slug: r.category_slug ?? "",
     sub_category_name: r.sub_category_name ?? "",
   };
-}
-
-async function getDegreeNames(degrees: string | null) {
-  if (!degrees) return "";
-
-  const degreeIds = degrees
-    .split(",")
-    .map((id) => Number(id.trim()))
-    .filter((id) => Number.isInteger(id) && id > 0);
-
-  if (degreeIds.length === 0) return "";
-
-  const [rows] = await pool.query<RowDataPacket[]>(
-    `SELECT id, name
-     FROM degrees
-     WHERE id IN (?)`,
-    [degreeIds]
-  );
-
-  const degreeMap = new Map(
-    rows.map((row) => [Number(row.id), row.name])
-  );
-
-  return degreeIds
-    .map((id) => degreeMap.get(id))
-    .filter(Boolean)
-    .join(", ");
 }
 
 
@@ -199,12 +197,7 @@ export async function GET(req: NextRequest) {
     `;
 
     const [rows] = await pool.query<ListingRow[]>(sql, params);
-    const data = await Promise.all(
-      rows.map(async (row) => ({
-        ...formatListing(row),
-        degrees: await getDegreeNames(row.degrees),
-      }))
-    );
+    const data = rows.map(formatListing);
 
     return NextResponse.json(data, {
       headers: {

@@ -23,6 +23,8 @@ import {
   ArrowRight,
   Navigation,
   ShieldCheck,
+  BriefcaseMedical,
+  GraduationCap,
 } from "lucide-react";
 
 interface Listing {
@@ -34,6 +36,10 @@ interface Listing {
   city: string;
   area: string;
   address: string;
+  services: string[];
+  experience:number;
+  fees:number;
+  degrees: string;
   image: string;
   phone:string;
   slug: string;
@@ -258,7 +264,7 @@ const fullLocation = [
   const tabs: TabName[] = [
     "Overview",
     // "Doctors",
-    // "Services",
+    "Services",
     // "Gallery",
     // "Location",
     // "Reviews",
@@ -320,7 +326,7 @@ const fullLocation = [
             />
 
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              {clinic.services.map((service) => (
+              {listing.services.map((service) => (
                 <div
                   key={service}
                   className="flex items-center gap-3 rounded-xl border border-[#ebe8f4] bg-white p-4 transition hover:border-[#cfc5ff] hover:bg-[#fbfaff]"
@@ -519,7 +525,7 @@ const fullLocation = [
 
             {/* SERVICES */}
 
-            <section className={`${cardClass} p-5 sm:p-7`}>
+            <section className={`${cardClass} p-5 sm:p-7 hidden`}>
               <div className="flex items-center justify-between gap-3">
                 <SectionTitle
                   title="Services"
@@ -651,11 +657,42 @@ const fullLocation = [
                 className="shrink-0 text-white"
               />
             </div>
-
+             {listing.experience ? (
+            <div className="mt-2 inline-flex items-center rounded-lg bg-gradient-to-r from-[#f0edff] to-[#f9edff] px-3 py-1.5 text-xs font-bold text-[#4e44e1]">
+                <BriefcaseMedical
+                  size={14}
+                  className="mr-2"
+                />
+                {listing.sub_category_name}
+              </div>
+              ):
+            (
             <p className="mt-2 text-sm font-medium text-[#77748c]">
               {listing.sub_category_name}
             </p>
+            )}
+            {/* EXPERIENCE */}
+            {listing.experience && (
+            <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3 text-base leading-7 text-[#5f6078]">
+              <span className="inline-flex items-center gap-2">
+                <BriefcaseMedical
+                  size={18}
+                  className="shrink-0 text-[#4e44e1]"
+                />
+                {listing.experience}+ years experience
+              </span>
 
+              <span className="hidden h-5 w-px bg-[#ddd8ed] sm:block" />
+
+              <span className="inline-flex items-center gap-2">
+                <GraduationCap
+                  size={19}
+                  className="shrink-0 text-[#9122b4]"
+                />
+                {listing.degrees}
+              </span>
+            </div>
+            )}
             {/* RATING */}
 
             <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -685,12 +722,29 @@ const fullLocation = [
               <span className="mx-1 hidden h-4 w-px bg-[#ebe8f4] sm:block" />
 
               <span className="text-[13px] font-medium text-[#4B5568]">
-                {clinic.specialty}
+                {listing.sub_category_name}
               </span>
             </div>
-
+            {/* CONSULTATION FEE */}
             {/* LOCATION & HOURS */}
+              {listing.fees ? (
+            
 
+                <div className="mt-5">
+                  <p className="text-sm font-medium text-[#85829c]">
+                    Consultation Fee
+                  </p>
+
+                  <div className="mt-1 flex items-baseline gap-2">
+                    <span className="text-3xl font-bold text-[#17152b]">
+                      ₹{listing.fees}
+                    </span>
+
+                    <span className="text-base text-[#85829c]">/ visit</span>
+                  </div>
+                </div>
+                ):(
+            
             <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-6">
               <div className="flex items-start gap-2 text-[13px] text-[#4B5568]">
                 <MapPin
@@ -706,6 +760,7 @@ const fullLocation = [
                 <span>{clinic.workingHours[0].hours}</span>
               </div>
             </div>
+            )}
 
             {/* ACTION BUTTONS */}
 
@@ -725,7 +780,7 @@ const fullLocation = [
                 className="inline-flex h-[46px] items-center justify-center gap-2 rounded-xl border border-[#ddd9ee] bg-white px-6 text-sm font-semibold text-[#4B5568] transition hover:border-[#cfc5ff] hover:bg-[#fbfaff] hover:text-[#4e44e1]"
               >
                 <Phone size={17} />
-                Call Clinic
+                Call Now
               </button>
             </div>
 
