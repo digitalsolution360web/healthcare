@@ -19,6 +19,8 @@ interface Listing extends RowDataPacket {
   city: string;
   area: string;
   address: string;
+  pincode: string;
+  iframe: string;
   experience:number;
   fees:number;
   services: string[];

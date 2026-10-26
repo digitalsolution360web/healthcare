@@ -19,6 +19,8 @@ interface ListingRow extends RowDataPacket {
   degree_names: string | null;
   service_names: string | null;
   phone: string | null;
+  pincode: string | null;
+  iframe: string | null;
   image: string | null;
   slug: string | null;
   state_name: string | null;
@@ -38,8 +40,10 @@ const SELECT_FIELDS = `
   listings.city,
   listings.area,
   listings.phone,
+  listings.pincode,
   listings.experience,
   listings.fees,
+  listings.iframe,
   listings.degrees,
   listings.address,
   listings.services,
@@ -102,6 +106,8 @@ function formatListing(r: ListingRow) {
     area: r.area ?? "",
     address: r.address ?? "",
     phone: r.phone ?? "",
+    pincode: r.pincode ?? "",
+    iframe: r.iframe ?? "",
     image: r.image || "/images/clinics/placeholder.jpg",
     slug: r.slug ?? String(r.id),
     state_name: r.state_name ?? "",

@@ -4,7 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Heart, Menu, X, ChevronDown } from "lucide-react";
+import { Heart, Menu, X, ChevronDown, LogIn, UserPlus } from "lucide-react";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -248,39 +248,24 @@ export default function Header() {
         </nav>
 
         {/* DESKTOP AUTH BUTTONS */}
-        <div className="hidden shrink-0 items-center gap-[14px] md:flex">
 
-          <Link
-            href="/login"
-            className="
-              inline-flex h-[44px] min-w-[89px] items-center
-              justify-center rounded-[9px]
-              border border-[#d8d3f0] bg-white
-              px-5 text-[15px] font-bold text-[#4e44e1]
-              transition-all duration-200
-              hover:border-[#4e44e1] hover:bg-[#f5f3ff]
-            "
-          >
-            Login
-          </Link>
+<div className="hidden shrink-0 items-center gap-[14px] md:flex">
+  <Link
+    href="/login"
+    aria-label="Login"
+    className="inline-flex h-[44px] w-[44px] items-center justify-center rounded-[9px] border border-[#d8d3f0] bg-white text-[#4e44e1] transition-all duration-200 hover:border-[#4e44e1] hover:bg-[#f5f3ff]"
+  >
+    <LogIn size={20} strokeWidth={2} />
+  </Link>
 
-          <Link
-            href="/register"
-            className="
-              inline-flex h-[44px] min-w-[105px] items-center
-              justify-center rounded-[9px]
-              bg-gradient-to-r from-[#4e44e1] to-[#9122b4]
-              px-5 text-[15px] font-bold text-white
-              shadow-[0_7px_18px_rgba(78,68,225,0.18)]
-              transition-all duration-200
-              hover:-translate-y-[1px]
-              hover:shadow-[0_10px_25px_rgba(145,34,180,0.25)]
-            "
-          >
-            Sign Up
-          </Link>
-
-        </div>
+  <Link
+    href="/register"
+    aria-label="Sign Up"
+    className="inline-flex h-[44px] w-[44px] items-center justify-center rounded-[9px] bg-gradient-to-r from-[#4e44e1] to-[#9122b4] text-white shadow-[0_7px_18px_rgba(78,68,225,0.18)] transition-all duration-200 hover:-translate-y-[1px] hover:shadow-[0_10px_25px_rgba(145,34,180,0.25)]"
+  >
+    <UserPlus size={20} strokeWidth={2} />
+  </Link>
+</div>
 
       </div>
     </header>

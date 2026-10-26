@@ -36,6 +36,8 @@ interface Listing {
   city: string;
   area: string;
   address: string;
+  pincode: string;
+  iframe: string;
   services: string[];
   experience:number;
   fees:number;
@@ -220,6 +222,15 @@ const fullLocation = [
             listing?.area_name,
             listing?.city_name,
             listing?.state_name,
+          ]
+            .filter(Boolean)
+            .join(", ");
+const mapLocation = [
+            listing?.address,
+            listing?.area_name,
+            listing?.city_name,
+            listing?.state_name,
+            listing?.pincode,
           ]
             .filter(Boolean)
             .join(", ");
@@ -860,7 +871,7 @@ const fullLocation = [
                 </h2>
 
                 <a
-                  href={getDirectionsUrl(fullLocation || listing.address)}
+                  href={getDirectionsUrl(mapLocation || listing.address)}
                   target="_blank"
                   rel="noreferrer"
                   className="text-xs font-bold text-[#4e44e1] hover:text-[#9122b4]"
@@ -870,8 +881,26 @@ const fullLocation = [
               </div>
 
               {/* MAP PLACEHOLDER */}
+              <div className="relative mx-5 mt-4 h-[180px] overflow-hidden rounded-xl border border-[#ebe8f4]">
+                <iframe
+                  title="Location map"
+                  src={
+                      listing.iframe ||
+                      `https://maps.google.com/maps?q=${encodeURIComponent(
+                        mapLocation || fullLocation || listing.address
+                      )}&output=embed`
+                    }
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              </div>
+              {/* MAP PLACEHOLDER hidden*/}
 
-              <div className="relative mx-5 mt-4 h-[180px] overflow-hidden rounded-xl border border-[#ebe8f4] bg-[#f0edf9]">
+              <div className=" hidden relative mx-5 mt-4 h-[180px] overflow-hidden rounded-xl border border-[#ebe8f4] bg-[#f0edf9]">
                 <div
                   className="absolute inset-0"
                   style={{
@@ -916,7 +945,7 @@ const fullLocation = [
                 </div>
 
                 <a
-                  href={getDirectionsUrl(fullLocation || listing.address)}
+                  href={getDirectionsUrl(mapLocation || listing.address)}
                   target="_blank"
                   rel="noreferrer"
                   className="mt-4 inline-flex h-10 w-full items-center justify-center gap-2 rounded-xl border border-[#ddd9ee] text-[13px] font-semibold text-[#4e44e1] transition hover:border-[#cfc5ff] hover:bg-[#f5f3ff]"
