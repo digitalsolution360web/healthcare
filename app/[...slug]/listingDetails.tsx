@@ -871,7 +871,7 @@ const mapLocation = [
                 </h2>
 
                 <a
-                  href={getDirectionsUrl(mapLocation || listing.address)}
+                  href={getDirectionsUrl(mapLocation || fullLocation || listing.address)}
                   target="_blank"
                   rel="noreferrer"
                   className="text-xs font-bold text-[#4e44e1] hover:text-[#9122b4]"
@@ -945,7 +945,7 @@ const mapLocation = [
                 </div>
 
                 <a
-                  href={getDirectionsUrl(mapLocation || listing.address)}
+                  href={getDirectionsUrl(mapLocation || fullLocation || listing.address)}
                   target="_blank"
                   rel="noreferrer"
                   className="mt-4 inline-flex h-10 w-full items-center justify-center gap-2 rounded-xl border border-[#ddd9ee] text-[13px] font-semibold text-[#4e44e1] transition hover:border-[#cfc5ff] hover:bg-[#f5f3ff]"
