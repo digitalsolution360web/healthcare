@@ -155,7 +155,7 @@ export default async function CatchAllPage({ params }: PageProps) {
    const categories = await getCategory(segment);
 
     if (categories.length > 0) {
-      return <CategoryLayout data={categories[0]} cityId={0} />;
+      return <CategoryLayout data={categories} cityId={0} />;
     }
     
     // Fallback if no resource matches the single segment
@@ -182,7 +182,7 @@ export default async function CatchAllPage({ params }: PageProps) {
     const exists = await hasListingsInCity(cityId);
 
     if (exists) {
-      return <CategoryLayout data={categories[0]} cityId={cityId}/>;
+      return <CategoryLayout data={categories} cityId={cityId}/>;
     }
   }
   const [listing] = await pool.query<Listing[]>(
