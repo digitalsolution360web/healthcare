@@ -53,16 +53,17 @@ async function getCategory(slug: string) {
 
   return rows[0] ?? null;
 }
-async function hasListingsInCity(cityId: number): Promise<boolean> {
+
+async function getCityId(citySlug: string): Promise<number | null> {
   const [rows] = await pool.query<RowDataPacket[]>(
-    `SELECT 1
-     FROM listings
-     WHERE city = ?
+    `SELECT city_id
+     FROM citys
+     WHERE city_slug = ?
      LIMIT 1`,
-    [cityId]
+    [citySlug]
   );
 
-  return rows.length > 0;
+  return rows.length > 0 ? Number(rows[0].city_id) : null;
 }
 export async function generateMetadata({
   params,
@@ -164,23 +165,27 @@ export default async function CatchAllPage({ params }: PageProps) {
   const segment2 = slugArray[1];
   const segment = `/${segment1}/${segment2}`;
 
-  const [cityRows] = await pool.query<RowDataPacket[]>(
-    `SELECT city_id
-     FROM citys
-     WHERE city_slug = ?
-     LIMIT 1`,
-    [segment2]
-  );
+  const [category, cityId] = await Promise.all([
+      getCategory(segment1),
+      getCityId(segment2),
+    ]);
+   
+   if (category && cityId !== null) {
 
-  const categories = await getCategory(segment1);
+    const [listingRows] = await pool.query<RowDataPacket[]>(
+      `SELECT id
+       FROM listings
+       WHERE category_id = ?
+       AND city = ?
+       LIMIT 1`,
+      [category.id, cityId]
+    );
 
-  if (cityRows.length > 0 && categories) {
-    const cityId = cityRows[0].city_id;
-    const exists = await hasListingsInCity(cityId);
-
-    if (exists) {
-      return <CategoryLayout data={categories} cityId={cityId}/>;
+    if (listingRows.length === 0) {
+      notFound();
     }
+      return <CategoryLayout data={category} cityId={cityId}/>;
+    
   }
   const [listing] = await pool.query<Listing[]>(
     `SELECT *

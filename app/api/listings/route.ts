@@ -208,6 +208,7 @@ export async function GET(req: NextRequest) {
 
     const [rows] = await pool.query<ListingRow[]>(sql, params);
     const data = rows.map(formatListing);
+    
 
     return NextResponse.json(data, {
       headers: {
