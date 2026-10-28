@@ -683,7 +683,7 @@ const mapLocation = [
             </p>
             )}
             {/* EXPERIENCE */}
-            {listing.experience && (
+            {listing.experience > 0  && (
             <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3 text-base leading-7 text-[#5f6078]">
               <span className="inline-flex items-center gap-2">
                 <BriefcaseMedical
