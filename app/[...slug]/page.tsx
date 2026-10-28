@@ -44,7 +44,7 @@ interface PageProps {
 
 async function getCategory(slug: string) {
   const [rows] = await pool.query<Category[]>(
-    `SELECT id, name, slug, meta_title, meta_description
+    `SELECT *
      FROM categories
      WHERE slug = ?
      LIMIT 1`,
@@ -154,12 +154,9 @@ export default async function CatchAllPage({ params }: PageProps) {
 
    const categories = await getCategory(segment);
 
-    if (categories.length > 0) {
-      return <CategoryLayout data={categories} cityId={0} />;
-    }
-    
-    // Fallback if no resource matches the single segment
-    notFound();
+    if (!categories) notFound();
+
+    return <CategoryLayout data={categories} cityId={0} />;
   }
   // 3. Single Segment Logic (e.g., "/some-slug/some-slug")
   if (slugArray.length === 2) {
@@ -177,7 +174,7 @@ export default async function CatchAllPage({ params }: PageProps) {
 
   const categories = await getCategory(segment1);
 
-  if (cityRows.length > 0 && categories.length > 0) {
+  if (cityRows.length > 0 && categories) {
     const cityId = cityRows[0].city_id;
     const exists = await hasListingsInCity(cityId);
 
