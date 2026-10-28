@@ -127,7 +127,8 @@ export async function GET(req: NextRequest) {
     const categoryId = searchParams.get("category_id");
     const slug = searchParams.get("slug")?.trim() ?? "";
     const q = searchParams.get("q")?.trim() ?? "";
-    const city = searchParams.get("city")?.trim() ?? "";
+    // const city = searchParams.get("city")?.trim() ?? "";
+    const city_id = searchParams.get("city_id") ?? 0;
 
     // GET /api/listings?slug=bliss-32-dental-implant-centre-mumbai
     if (slug) {
@@ -187,13 +188,16 @@ export async function GET(req: NextRequest) {
       params.push(like, like, like);
     }
 
-    if (city) {
-      where.push("listings.city = ?");
-      params.push(city);
-    }
-
+    // if (city) {
+    //   where.push("listings.city = ?");
+    //   params.push(city);
+    // }
+    if (Number(city_id) > 0) {
+        where.push("listings.city = ?");
+        params.push(Number(city_id));
+      }
     params.push(limit, offset);
-
+    
     const sql = `
       SELECT ${SELECT_FIELDS}
       ${JOINS}

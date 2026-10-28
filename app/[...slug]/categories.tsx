@@ -71,11 +71,6 @@ type DisplayListing = Listing & {
 
 const LISTINGS_ENDPOINT = "/api/listings";
 
-const PAGE_TITLE = "Find Clinics Near You | HealthCare360";
-
-const PAGE_DESCRIPTION =
-  "Find and explore trusted clinics near you. Compare clinic specialties, ratings, locations and consultation options on HealthCare360.";
-
 /* =========================================
    NORMALIZER
 ========================================= */
@@ -165,7 +160,7 @@ function ListingSkeletonList() {
    PAGE
 ========================================= */
 
-export default function CategoryLayout({ data }: { data: Category }) {
+export default function CategoryLayout({ data, cityId }: { data: Category;cityId: Number }) {
   const [listings, setListings] = useState<DisplayListing[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -188,7 +183,7 @@ export default function CategoryLayout({ data }: { data: Category }) {
     setLoading(true);
     setError(null);
 
-    fetch(`${LISTINGS_ENDPOINT}?category_id=${encodeURIComponent(data.id)}`)
+    fetch(`${LISTINGS_ENDPOINT}?category_id=${encodeURIComponent(data.id)}&city_id=${cityId}`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load listings");
         return res.json();
@@ -212,25 +207,6 @@ export default function CategoryLayout({ data }: { data: Category }) {
     };
   }, [data.id, refreshKey]);
 
-  /* =========================================
-     SEO
-  ========================================= */
-
-  useEffect(() => {
-    document.title = PAGE_TITLE;
-
-    let descriptionTag = document.querySelector(
-      'meta[name="description"]'
-    ) as HTMLMetaElement | null;
-
-    if (!descriptionTag) {
-      descriptionTag = document.createElement("meta");
-      descriptionTag.name = "description";
-      document.head.appendChild(descriptionTag);
-    }
-
-    descriptionTag.content = PAGE_DESCRIPTION;
-  }, []);
 
   /* =========================================
      DYNAMIC OPTIONS
