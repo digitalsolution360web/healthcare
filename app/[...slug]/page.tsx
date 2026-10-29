@@ -115,24 +115,55 @@ export async function generateMetadata({
   [slug]
 );
 
-    if (listings.length > 0) {
-      const listing = listings[0];
-      const title =
-      listing.category_name === "Clinics"
-        ? `${listing.name} in ${listing.city_name} - Doctors, Services & Reviews Hospital`
-        : listing.category_name === "Hospitals"
-          ? `${listing.name} in ${listing.city_name} - Doctors, Departments & Reviews Diagnostic Center`
-          : `${listing.name} - ${listing.sub_category_name} in ${listing.city_name} | Doclister Clinic`;
+   if (listings.length > 0) {
+  const listing = listings[0];
 
-      return {
-        title:
-          listing.meta_title || title,
+  const title =
+    listing.category_name === "Clinics"
+      ? `${listing.name} in ${listing.city_name} - Doctors, Services & Reviews`
+      : listing.category_name === "Hospitals"
+        ? `${listing.name} in ${listing.city_name} - Departments, Services & Reviews`
+        : `${listing.name}${listing.sub_category_name ? ` - ${listing.sub_category_name}` : ""}${listing.city_name ? ` in ${listing.city_name}` : ""} | Doclister`;
 
-        description:
-          listing.meta_description ||
-          `${listing.name}${listing.city_name ? ` in ${listing.city_name}` : ""}. Find address, phone number, services and other details.`,
-      };
-    }
+  const description =
+    listing.meta_description ||
+    `${listing.name}${listing.city_name ? ` in ${listing.city_name}` : ""}. Find address, phone number, services and other details.`;
+
+  const image =
+    listing.image?.startsWith("http")
+      ? listing.image
+      : listing.image
+        ? `https://yourdomain.com${listing.image.startsWith("/") ? "" : "/"}${listing.image}`
+        : "https://yourdomain.com/images/og-default.jpg";
+
+  return {
+    title: listing.meta_title || title,
+    description,
+
+    openGraph: {
+      title: listing.meta_title || title,
+      description,
+      url: `https://yourdomain.com${listing.slug}`,
+      siteName: "Doclister",
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: listing.name,
+        },
+      ],
+      type: "website",
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: listing.meta_title || title,
+      description,
+      images: [image],
+    },
+  };
+}
   }
 
   return {
