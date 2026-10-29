@@ -255,7 +255,18 @@ const faqs = [
     answer: `Appointment booking or contact information is available on the listing, follow the provided instructions.`,
   },
   
+  
 ];
+if( listing?.services && listing?.services.length > 0){
+  faqs.push({
+    question: `What services does the ${fCat} provide?`,
+    answer: `The services and treatments offered by ${listing?.category_name} include: ${
+    Array.isArray(listing?.services)
+      ? listing.services.join(", ")
+      : listing?.services || "Please contact the clinic for more information."
+  }.`,
+  });
+}
 if(listing?.pincode && listing?.category_name == 'Doctors'){
   faqs.push({
     question: `Where is the ${fCat}'s clinic located?`,
@@ -274,6 +285,13 @@ if(listing?.phone){
     answer: `You can contact ${listing?.name} by phone at ${listing?.phone}.`,
   });
 }
+if(listing?.experience != null && listing?.experience > 0 && listing?.category_name == 'Doctors'){
+  faqs.push({
+    question: `How many years of experience does the ${fCat} have?`,
+    answer: `${listing?.name} have ${listing?.experience}+ years experience.`,
+  });
+}
+
 if(listing?.email){
   faqs.push({
     question: `Can I contact ${listing?.name} by email?`,
