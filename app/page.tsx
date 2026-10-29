@@ -20,7 +20,7 @@ import {
   UserRound,
   ChevronDown,
 } from "lucide-react";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 
 const categories = [
   {
@@ -220,6 +220,8 @@ export default function Home() {
   const [specialty, setSpecialty] = useState("");
   const [location, setLocation] = useState("");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [pincodeSuggestions, setPincodeSuggestions] = useState<string[]>([]);
+  const [showPincodeSuggestions, setShowPincodeSuggestions] = useState(false);
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -229,6 +231,37 @@ export default function Home() {
     if (location.trim()) params.set("location", location.trim());
     window.location.href = `/doctors?${params.toString()}`;
   };
+
+useEffect(() => {
+  const q = location.trim();
+
+  if (q.length < 2 || !/^\d+$/.test(q)) {
+    setPincodeSuggestions([]);
+    return;
+  }
+
+  const timer = setTimeout(async () => {
+    try {
+      const res = await fetch(
+        `/api/search?q=${encodeURIComponent(q)}`
+      );
+
+      if (!res.ok) return;
+
+      const data = await res.json();
+
+      setPincodeSuggestions(
+        data.map((item: { pincode: string | number }) =>
+          String(item.pincode)
+        )
+      );
+    } catch (error) {
+      console.error("Pincode lookup failed:", error);
+    }
+  }, 300);
+
+  return () => clearTimeout(timer);
+}, [location]);
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#eef7ff] font-sans text-black">
@@ -329,20 +362,52 @@ export default function Home() {
             >
               <div className="flex h-[62px] min-w-0 items-center gap-3 border-b border-[#ece8f5] px-3 sm:border-r sm:border-b-0 lg:px-4">
                 <MapPin size={21} className="shrink-0 text-[#4e44e1]" aria-hidden="true" />
-                <div className="min-w-0 flex-1">
-                  <label htmlFor="location-search" className="mb-0.5 block text-xs font-semibold text-[#536078]">
-                    Location
-                  </label>
-                  <input
-                    id="location-search"
-                    type="text"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    placeholder="Enter city, area or PIN code"
-                    autoComplete="address-level2"
-                    className="h-7 w-full min-w-0 bg-transparent text-sm text-black outline-none placeholder:text-[#9298a8] sm:text-base"
-                  />
-                </div>
+                <div className="relative min-w-0 flex-1">
+  <label
+    htmlFor="location-search"
+    className="mb-0.5 block text-xs font-semibold text-[#536078]"
+  >
+    Location
+  </label>
+
+  <input
+    id="location-search"
+    type="text"
+    value={location}
+    onChange={(e) => {
+      setLocation(e.target.value);
+      setShowPincodeSuggestions(true);
+    }}
+    onFocus={() => setShowPincodeSuggestions(true)}
+    onBlur={() =>
+      setTimeout(() => setShowPincodeSuggestions(false), 150)
+    }
+    placeholder="Enter city, area or PIN code"
+    autoComplete="off"
+    className="h-7 w-full min-w-0 bg-transparent text-sm text-black outline-none placeholder:text-[#9298a8] sm:text-base"
+  />
+
+  {showPincodeSuggestions && pincodeSuggestions.length > 0 && (
+    <div className="absolute left-0 top-full z-50 mt-2 max-h-60 w-full min-w-48 overflow-y-auto rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
+      {pincodeSuggestions.map((pincode) => (
+        <button
+          key={pincode}
+          type="button"
+          onMouseDown={(e) => e.preventDefault()}
+          onClick={() => {
+            setLocation(pincode);
+            setShowPincodeSuggestions(false);
+            setPincodeSuggestions([]);
+          }}
+          className="block w-full px-3 py-2 text-left text-sm text-gray-800 hover:bg-gray-100"
+        >
+         
+          {pincode}
+        </button>
+      ))}
+    </div>
+  )}
+</div>
               </div>
 
               <div className="flex h-[62px] min-w-0 items-center gap-3 border-b border-[#ece8f5] px-3 sm:border-b-0 lg:border-r lg:px-4">

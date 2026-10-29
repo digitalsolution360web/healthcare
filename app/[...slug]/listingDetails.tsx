@@ -25,6 +25,7 @@ import {
   ShieldCheck,
   BriefcaseMedical,
   GraduationCap,
+  ChevronDown,
 } from "lucide-react";
 
 interface Listing {
@@ -125,6 +126,49 @@ const clinics = [
   
 ];
 
+const faqs = [
+  {
+    question: "What is DocLister?",
+    answer:
+      "DocLister is a healthcare directory intended to help people discover doctors, clinics, hospitals, diagnostic centres and pharmacies by category and location.",
+  },
+  {
+    question: "How do I find a doctor near me?",
+    answer:
+      "Enter your city, area or PIN code and search by doctor name or speciality. Review the available listings and contact the provider for further details.",
+  },
+  {
+    question: "Can I search for a clinic or hospital?",
+    answer:
+      "Yes. You can use the relevant category or search field to explore clinic and hospital listings, depending on the listings available in your area.",
+  },
+  {
+    question: "Can doctors and clinics list their services on DocLister?",
+    answer:
+      "Healthcare providers can use the listing submission option if it is enabled on the website. Add accurate information about your practice, location and services.",
+  },
+  {
+    question: "What should I check before choosing a doctor?",
+    answer:
+      "Review the provider’s listed qualifications, speciality, experience and location. Confirm important details directly with the provider and seek urgent medical help when needed.",
+  },
+  {
+    question: "Can I book an appointment through DocLister?",
+    answer:
+      "Appointment booking is available only if a booking feature or appointment link is provided on the relevant listing. Otherwise, use the contact details shown to reach the provider.",
+  },
+  {
+    question: "Does DocLister provide online consultations?",
+    answer:
+      "Online consultations should only be advertised when this feature is available on DocLister. Check the relevant provider listing for supported contact or consultation options.",
+  },
+  {
+    question: "Are all providers verified by DocLister?",
+    answer:
+      "Check the verification label and its explanation on the provider profile, if available. A directory listing by itself does not guarantee that credentials have been independently verified.",
+  },
+];
+
 /* =========================================
    TYPES
 ========================================= */
@@ -137,7 +181,8 @@ type TabName =
   | "Services"
   | "Gallery"
   | "Location"
-  | "Reviews";
+  | "Reviews"
+  | "Faqs";
 
 /* =========================================
    HELPERS
@@ -177,6 +222,7 @@ export default function ListingDetailLayout({ data }: { data: Listing }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   useEffect(() => {
   let cancelled = false;
@@ -276,7 +322,7 @@ const mapLocation = [
     "Overview",
     // "Doctors",
     "Services",
-    // "Gallery",
+    "Faqs",
     // "Location",
     // "Reviews",
   ];
@@ -353,6 +399,35 @@ const mapLocation = [
               ))}
             </div>
           </section>
+        );
+        case "Faqs":
+        return (
+           <section className={`${cardClass} p-5 sm:p-7`}>
+            <SectionTitle
+              title="Frequently Asked Questions"
+              description="Questions About Finding Healthcare Providers"
+            />
+        <div className="mx-auto max-w-7xl gap-10 lg:gap-16 mt-6">
+          <div className="space-y-3">
+            {faqs.map((faq, index) => (
+              <div key={faq.question} className="overflow-hidden rounded-xl border border-[#e4e0f2] bg-[#faf9fd]">
+                <button
+                  type="button"
+                  aria-expanded={openFaq === index}
+                  onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                  className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+                >
+                  <span className="font-semibold text-black">{faq.question}</span>
+                  <ChevronDown size={19} className={`shrink-0 text-[#4e44e1] transition-transform ${openFaq === index ? "rotate-180" : ""}`} />
+                </button>
+                {openFaq === index && (
+                  <p className="px-5 pb-5 text-sm leading-7 text-[#536078]">{faq.answer}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
         );
 
       case "Gallery":
@@ -499,21 +574,16 @@ const mapLocation = [
             {/* ABOUT CLINIC */}
 
             <section className={`${cardClass} p-5 sm:p-7`}>
-              {/* <SectionTitle
-                title="About Clinic"
-                description="Learn more about this healthcare facility."
-              /> */}
-
               
                                <div
-                  className="mt-3 text-sm leading-7 text-[#4B5568] [&_h1]:mb-3 [&_h1]:mt-5 [&_h1]:text-2xl [&_h1]:font-extrabold [&_h1]:text-[#17152b] [&_h2]:mb-3 [&_h2]:mt-5 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-[#17152b] [&_h3]:mb-2 [&_h3]:mt-4 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-[#17152b] [&_h4]:mb-2 [&_h4]:mt-4 [&_h4]:text-base [&_h4]:font-bold [&_h4]:text-[#17152b] [&_p]:mb-3 [&_p]:leading-7 [&_ul]:mb-3 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:mb-3 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1.5 [&_li]:leading-7 [&_a]:font-semibold [&_a]:text-[#4e44e1] [&_a]:underline [&_a:hover]:text-[#9122b4] [&_strong]:font-bold [&_strong]:text-[#17152b] [&_em]:italic [&_blockquote]:my-4 [&_blockquote]:rounded-r-lg [&_blockquote]:border-l-4 [&_blockquote]:border-[#4e44e1] [&_blockquote]:bg-[#fbfaff] [&_blockquote]:px-4 [&_blockquote]:py-2 [&_blockquote]:italic [&_blockquote]:text-[#77748c] [&_img]:my-4 [&_img]:rounded-xl [&_img]:border [&_img]:border-[#ebe8f4] [&_table]:my-4 [&_table]:w-full [&_table]:border-collapse [&_th]:border [&_th]:border-[#ebe8f4] [&_th]:bg-[#f5f3ff] [&_th]:px-3 [&_th]:py-2 [&_th]:text-left [&_th]:text-[13px] [&_th]:font-bold [&_th]:text-[#17152b] [&_td]:border [&_td]:border-[#ebe8f4] [&_td]:px-3 [&_td]:py-2 [&_td]:text-[13px] [&_hr]:my-5 [&_hr]:border-[#ebe8f4]"
+                  className=" text-sm leading-7 text-[#4B5568] [&_h1]:mb-3 [&_h1]:mt-5 [&_h1]:text-2xl [&_h1]:font-extrabold [&_h1]:text-[#17152b] [&_h2]:mb-3 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-[#17152b] [&_h3]:mb-2 [&_h3]:mt-4 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-[#17152b] [&_h4]:mb-2 [&_h4]:mt-4 [&_h4]:text-base [&_h4]:font-bold [&_h4]:text-[#17152b] [&_p]:mb-3 [&_p]:leading-7 [&_ul]:mb-3 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:mb-3 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1.5 [&_li]:leading-7 [&_a]:font-semibold [&_a]:text-[#4e44e1] [&_a]:underline [&_a:hover]:text-[#9122b4] [&_strong]:font-bold [&_strong]:text-[#17152b] [&_em]:italic [&_blockquote]:my-4 [&_blockquote]:rounded-r-lg [&_blockquote]:border-l-4 [&_blockquote]:border-[#4e44e1] [&_blockquote]:bg-[#fbfaff] [&_blockquote]:px-4 [&_blockquote]:py-2 [&_blockquote]:italic [&_blockquote]:text-[#77748c] [&_img]:my-4 [&_img]:rounded-xl [&_img]:border [&_img]:border-[#ebe8f4] [&_table]:my-4 [&_table]:w-full [&_table]:border-collapse [&_th]:border [&_th]:border-[#ebe8f4] [&_th]:bg-[#f5f3ff] [&_th]:px-3 [&_th]:py-2 [&_th]:text-left [&_th]:text-[13px] [&_th]:font-bold [&_th]:text-[#17152b] [&_td]:border [&_td]:border-[#ebe8f4] [&_td]:px-3 [&_td]:py-2 [&_td]:text-[13px] [&_hr]:my-5 [&_hr]:border-[#ebe8f4]"
                   dangerouslySetInnerHTML={{
                     __html: listing.about ?? "",
                   }}
                 />
             
 
-              <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+              {/* <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
                 <StatCard
                   icon={<UserRound size={21} />}
                   value={`${clinic.doctors} Doctors`}
@@ -531,7 +601,7 @@ const mapLocation = [
                   value={clinic.patients}
                   label="Patients Served"
                 />
-              </div>
+              </div> */}
             </section>
 
             {/* SERVICES */}

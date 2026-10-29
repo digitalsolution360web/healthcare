@@ -4,7 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Heart, Menu, X, ChevronDown, LogIn, UserPlus } from "lucide-react";
+import { Heart, Menu, X, ChevronDown, LogIn, UserPlus, ArrowUpRight } from "lucide-react";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -218,31 +218,11 @@ export default function Header() {
           <div className="mt-3 flex gap-3 border-t border-[#ebe8f4] pt-4 md:hidden">
 
             <Link
-              href="/login"
-              className="
-                flex min-h-[44px] flex-1 items-center justify-center
-                rounded-[9px] border border-[#d8d3f0] bg-white
-                px-5 text-sm font-bold text-[#4e44e1]
-                transition-all duration-200
-                hover:border-[#4e44e1] hover:bg-[#f5f3ff]
-              "
-            >
-              Login
-            </Link>
-
-            <Link
-              href="/register"
-              className="
-                flex min-h-[44px] flex-1 items-center justify-center
-                rounded-[9px] bg-gradient-to-r from-[#4e44e1] to-[#9122b4]
-                px-5 text-sm font-bold text-white
-                shadow-[0_7px_18px_rgba(78,68,225,0.20)]
-                transition-all duration-200
-                hover:shadow-[0_10px_24px_rgba(145,34,180,0.25)]
-              "
-            >
-              Sign Up
-            </Link>
+      href="/login"
+      className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl border border-[#4e44e1]/20 bg-white px-6 py-3 text-base font-semibold text-[#4e44e1] bg-gradient-to-r from-[#4e44e1] to-[#9122b4] text-white shadow-[0_7px_18px_rgba(78,68,225,0.18)] transition-all duration-200 hover:-translate-y-[1px] hover:shadow-[0_10px_25px_rgba(145,34,180,0.25)]"
+    >
+      List Your Practice <ArrowUpRight size={19} />
+    </Link>
 
           </div>
         </nav>
@@ -250,21 +230,13 @@ export default function Header() {
         {/* DESKTOP AUTH BUTTONS */}
 
 <div className="hidden shrink-0 items-center gap-[14px] md:flex">
-  <Link
-    href="/login"
-    aria-label="Login"
-    className="inline-flex h-[44px] w-[44px] items-center justify-center rounded-[9px] border border-[#d8d3f0] bg-white text-[#4e44e1] transition-all duration-200 hover:border-[#4e44e1] hover:bg-[#f5f3ff]"
-  >
-    <LogIn size={20} strokeWidth={2} />
-  </Link>
 
-  <Link
-    href="/register"
-    aria-label="Sign Up"
-    className="inline-flex h-[44px] w-[44px] items-center justify-center rounded-[9px] bg-gradient-to-r from-[#4e44e1] to-[#9122b4] text-white shadow-[0_7px_18px_rgba(78,68,225,0.18)] transition-all duration-200 hover:-translate-y-[1px] hover:shadow-[0_10px_25px_rgba(145,34,180,0.25)]"
-  >
-    <UserPlus size={20} strokeWidth={2} />
-  </Link>
+   <Link
+      href="/login"
+      className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl border border-[#4e44e1]/20 bg-white px-6 py-3 text-base font-semibold text-[#4e44e1] bg-gradient-to-r from-[#4e44e1] to-[#9122b4] text-white shadow-[0_7px_18px_rgba(78,68,225,0.18)] transition-all duration-200 hover:-translate-y-[1px] hover:shadow-[0_10px_25px_rgba(145,34,180,0.25)]"
+    >
+      List Your Practice <ArrowUpRight size={19} />
+    </Link>
 </div>
 
       </div>
