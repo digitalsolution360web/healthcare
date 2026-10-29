@@ -46,6 +46,8 @@ interface Listing {
   image: string;
   phone:string;
   slug: string;
+  email: string;
+  website: string;
   state_name?: string | null;
   city_name?: string | null;
   area_name?: string | null;
@@ -126,48 +128,6 @@ const clinics = [
   
 ];
 
-const faqs = [
-  {
-    question: "What is DocLister?",
-    answer:
-      "DocLister is a healthcare directory intended to help people discover doctors, clinics, hospitals, diagnostic centres and pharmacies by category and location.",
-  },
-  {
-    question: "How do I find a doctor near me?",
-    answer:
-      "Enter your city, area or PIN code and search by doctor name or speciality. Review the available listings and contact the provider for further details.",
-  },
-  {
-    question: "Can I search for a clinic or hospital?",
-    answer:
-      "Yes. You can use the relevant category or search field to explore clinic and hospital listings, depending on the listings available in your area.",
-  },
-  {
-    question: "Can doctors and clinics list their services on DocLister?",
-    answer:
-      "Healthcare providers can use the listing submission option if it is enabled on the website. Add accurate information about your practice, location and services.",
-  },
-  {
-    question: "What should I check before choosing a doctor?",
-    answer:
-      "Review the provider’s listed qualifications, speciality, experience and location. Confirm important details directly with the provider and seek urgent medical help when needed.",
-  },
-  {
-    question: "Can I book an appointment through DocLister?",
-    answer:
-      "Appointment booking is available only if a booking feature or appointment link is provided on the relevant listing. Otherwise, use the contact details shown to reach the provider.",
-  },
-  {
-    question: "Does DocLister provide online consultations?",
-    answer:
-      "Online consultations should only be advertised when this feature is available on DocLister. Check the relevant provider listing for supported contact or consultation options.",
-  },
-  {
-    question: "Are all providers verified by DocLister?",
-    answer:
-      "Check the verification label and its explanation on the provider profile, if available. A directory listing by itself does not guarantee that credentials have been independently verified.",
-  },
-];
 
 /* =========================================
    TYPES
@@ -280,6 +240,64 @@ const mapLocation = [
           ]
             .filter(Boolean)
             .join(", ");
+
+const fCat = listing?.category_name == 'Doctors' ? 'doctor' 
+             : listing?.category_name == 'Clinics' ? 'clinic' 
+             : listing?.category_name == 'Hospitals' ? 'hospital' : listing?.category_name;
+
+const faqs = [
+  {
+    question: `What is the name of the listed ${fCat}?`,
+    answer: `You can find the ${fCat}'s name and professional details on this profile page.`,
+  },
+  {
+    question: `How can I book an appointment with the ${fCat}?`,
+    answer: `Appointment booking or contact information is available on the listing, follow the provided instructions.`,
+  },
+  
+];
+if(listing?.pincode && listing?.category_name == 'Doctors'){
+  faqs.push({
+    question: `Where is the ${fCat}'s clinic located?`,
+    answer: `${listing?.name}'s clinic is located at ${mapLocation}, India.`,
+  });
+}
+if(listing?.pincode && listing?.category_name != 'Doctors'){
+  faqs.push({
+    question: `Where is the ${fCat} located?`,
+    answer: `${listing?.name} is located at ${mapLocation}, India.`,
+  });
+}
+if(listing?.phone){
+  faqs.push({
+    question: `How can I contact ${listing?.name}?`,
+    answer: `You can contact ${listing?.name} by phone at ${listing?.phone}.`,
+  });
+}
+if(listing?.email){
+  faqs.push({
+    question: `Can I contact ${listing?.name} by email?`,
+    answer: `Yes. Their email address is ${listing?.email}.`,
+  });
+}
+if (listing?.website) {
+  faqs.push({
+    question: `Does ${listing.name} have an official website?`,
+    answer: `Yes. Their official website is <a href="${listing.website}" target="_blank" class="text-blue-600 hover:underline" rel="noopener noreferrer">${listing.website}</a>.`,
+  });
+}
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer.replace(/<[^>]*>/g, ""),
+    },
+  })),
+};
 
    
   if (loading) {
@@ -421,7 +439,12 @@ const mapLocation = [
                   <ChevronDown size={19} className={`shrink-0 text-[#4e44e1] transition-transform ${openFaq === index ? "rotate-180" : ""}`} />
                 </button>
                 {openFaq === index && (
-                  <p className="px-5 pb-5 text-sm leading-7 text-[#536078]">{faq.answer}</p>
+                  <p
+                    dangerouslySetInnerHTML={{
+                      __html: faq.answer,
+                    }}
+                    className="px-5 pb-5 text-sm leading-7 text-[#536078]"
+                  />
                 )}
               </div>
             ))}
@@ -671,6 +694,13 @@ const mapLocation = [
   };
 
   return (
+     <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c"),
+      }}
+    />
     <main className="min-h-screen bg-white text-[#4B5568]">
       {/* BREADCRUMB */}
 
@@ -1100,6 +1130,7 @@ const mapLocation = [
         </div>
       </section>
     </main>
+    </>
   );
 }
 

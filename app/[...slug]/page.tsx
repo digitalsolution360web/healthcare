@@ -30,6 +30,8 @@ interface Listing extends RowDataPacket {
   image: string;
   phone: string;
   slug: string;
+  email: string;
+  website: string;
   state_name?: string | null;
   city_name?: string | null;
   area_name?: string | null;
