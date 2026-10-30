@@ -173,6 +173,7 @@ export default function CategoryLayout({ data, cityId }: { data: Category;cityId
   const [consultationMode, setConsultationMode] = useState("all");
   const [sortBy, setSortBy] = useState("popular");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   /* =========================================
      FETCH LISTINGS BY CATEGORY_ID
@@ -213,12 +214,22 @@ export default function CategoryLayout({ data, cityId }: { data: Category;cityId
   ========================================= */
 
   const locationOptions = useMemo(() => {
-    const set = new Set<string>();
-    listings.forEach((l) => {
-      if (l.city) set.add(l.city);
-    });
-    return ["All Locations", ...Array.from(set)];
-  }, [listings]);
+  const cities = new Map<string, string>();
+
+  listings.forEach((l) => {
+    if (l.city && l.city_name) {
+      cities.set(String(l.city), l.city_name);
+    }
+  });
+
+  return [
+    { value: "All Locations", label: "All Locations" },
+    ...Array.from(cities, ([value, label]) => ({
+      value,
+      label,
+    })),
+  ];
+}, [listings]);
 
   const specialtyOptions = useMemo(
     () => (data.name ? [data.name] : []),
@@ -310,7 +321,15 @@ export default function CategoryLayout({ data, cityId }: { data: Category;cityId
     sortBy,
     data.name,
   ]);
-
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(filteredListings.length / itemsPerPage);
+  const paginatedListings = filteredListings.slice(
+  (currentPage - 1) * itemsPerPage,
+  currentPage * itemsPerPage
+);
+useEffect(() => {
+  setCurrentPage(1);
+}, [search, location]);
   /* =========================================
      FILTER SIDEBAR
   ========================================= */
@@ -349,8 +368,8 @@ export default function CategoryLayout({ data, cityId }: { data: Category;cityId
             className="h-[44px] w-full appearance-none rounded-lg border border-[#ddd9ee] bg-white px-3 pr-9 text-[14px] text-[#4B5568] outline-none transition focus:border-[#7767e8] focus:ring-2 focus:ring-[#4e44e1]/10"
           >
             {locationOptions.map((item) => (
-              <option key={item} value={item}>
-                {item}
+              <option key={item.value} value={item.value}>
+                {item.label}
               </option>
             ))}
           </select>
@@ -385,7 +404,7 @@ export default function CategoryLayout({ data, cityId }: { data: Category;cityId
       </div>
 
       {/* RATING */}
-      <div className="border-b border-[#f0edf7] px-5 py-5">
+      {/* <div className="border-b border-[#f0edf7] px-5 py-5">
         <h3 className="mb-4 text-[14px] font-bold text-[#24213a]">Rating</h3>
 
         <div className="space-y-3">
@@ -411,10 +430,10 @@ export default function CategoryLayout({ data, cityId }: { data: Category;cityId
             </label>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* CONSULTATION MODE */}
-      <div className="px-5 py-5">
+      {/* <div className="px-5 py-5">
         <h3 className="mb-4 text-[14px] font-bold text-[#24213a]">
           Consultation Mode
         </h3>
@@ -441,7 +460,7 @@ export default function CategoryLayout({ data, cityId }: { data: Category;cityId
             </label>
           ))}
         </div>
-      </div>
+      </div> */}
     </>
   );
 
@@ -535,10 +554,10 @@ export default function CategoryLayout({ data, cityId }: { data: Category;cityId
                 className="h-full w-full min-w-0 appearance-none bg-transparent pr-5 text-[14px] font-medium text-[#4B5568] outline-none"
               >
                 {locationOptions.map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
+              <option key={item.value} value={item.value}>
+                {item.label}
+              </option>
+            ))}
               </select>
 
               <ChevronDown
@@ -652,7 +671,7 @@ export default function CategoryLayout({ data, cityId }: { data: Category;cityId
 
                 {/* CARDS */}
                 <div className="mt-4 space-y-4">
-                  {filteredListings.map((clinic) => {
+                  {paginatedListings.map((clinic) => {
                     const fullLocation = [
                       clinic.area_name,
                       clinic.city_name,
@@ -1015,6 +1034,41 @@ export default function CategoryLayout({ data, cityId }: { data: Category;cityId
                     </div>
                   )}
                 </div>
+                {totalPages > 1 && (
+  <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+
+    <button
+      onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+      disabled={currentPage === 1}
+      className="rounded-lg border px-4 py-2 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-40"
+    >
+      Previous
+    </button>
+
+    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+      <button
+        key={page}
+        onClick={() => setCurrentPage(page)}
+        className={`h-10 min-w-10 rounded-lg border px-3 text-sm font-semibold ${
+          currentPage === page
+            ? "border-[#4e44e1] bg-[#4e44e1] text-white"
+            : "border-[#e7e3f2] bg-white text-[#4e44e1] hover:bg-[#f5f3ff]"
+        }`}
+      >
+        {page}
+      </button>
+    ))}
+
+    <button
+      onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+      disabled={currentPage === totalPages}
+      className="rounded-lg border px-4 py-2 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-40"
+    >
+      Next
+    </button>
+
+  </div>
+)}
               </>
             )}
           </div>

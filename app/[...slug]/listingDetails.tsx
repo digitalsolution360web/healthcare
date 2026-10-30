@@ -248,7 +248,7 @@ const fCat = listing?.category_name == 'Doctors' ? 'doctor'
 const faqs = [
   {
     question: `What is the name of the listed ${fCat}?`,
-    answer: `You can find the ${fCat}'s name and professional details on this profile page.`,
+    answer: `The name of the listed ${fCat} is ${listing?.name}`,
   },
   {
     question: `How can I book an appointment with the ${fCat}?`,

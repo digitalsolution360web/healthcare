@@ -686,24 +686,6 @@ useEffect(() => {
           </div>
         </div>
       </section>
-
-      {/* CLOSING CTA */}
-      <section className="bg-white px-5 pb-14 sm:px-8 lg:px-6 lg:pb-20">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-[26px] bg-gradient-to-r from-[#4e44e1] to-[#9122b4] px-6 py-10 text-center shadow-[0_20px_60px_rgba(78,68,225,0.20)] sm:px-10 sm:py-14">
-          <h2 className="text-3xl font-extrabold tracking-[-1px] text-white sm:text-4xl">Start Your Healthcare Search with DocLister</h2>
-          <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-white/90 sm:text-lg">
-            Explore healthcare providers by speciality and location. Review available details, find a nearby facility and contact the provider to ask questions or arrange a visit.
-          </p>
-          <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
-            <Link href="/doctors" className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 font-semibold text-[#4e44e1] transition hover:-translate-y-0.5 hover:shadow-lg">
-              Find a Doctor <ArrowRight size={18} />
-            </Link>
-            <Link href="/list-your-practice" className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl border border-white/50 bg-white/10 px-6 py-3 font-semibold text-white transition hover:bg-white/20">
-              Add Your Listing <ArrowUpRight size={18} />
-            </Link>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }
