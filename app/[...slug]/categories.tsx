@@ -37,6 +37,7 @@ interface Category {
 interface Listing {
   id: number | string;
   category_id: number;
+  sub_category_id: number;
   name: string;
   about: string;
   state: string;
@@ -78,10 +79,18 @@ const LISTINGS_ENDPOINT = "/api/listings";
 function normalizeListing(raw: Record<string, any>): DisplayListing {
   const id = raw.id ?? 0;
   const numericId = typeof id === "number" ? id : Number(id) || 0;
-
+  const sub = raw.sub_category ?? raw.subcategory ?? {};
   return {
     id,
     category_id: raw.category_id ?? 0,
+    sub_category_id:
+      raw.sub_category_id ?? sub.id ?? raw.subcategory_id ?? 0,
+    sub_category_name:
+      raw.sub_category_name ??
+      sub.name ??
+      raw.subcategory_name ??
+      raw.subCategoryName ??
+      "",
     name: raw.name ?? "Untitled Listing",
     about: raw.about ?? "",
     state: raw.state ?? "",
@@ -97,7 +106,7 @@ function normalizeListing(raw: Record<string, any>): DisplayListing {
     city_name: raw.city_name ?? "",
     area_name: raw.area_name ?? "",
     category_name: raw.category_name ?? "",
-    sub_category_name: raw.sub_category_name ?? "",
+    
 
     /* ---------- STATIC DUMMY ---------- */
     rating: 4.5 + (numericId % 5) * 0.1,
@@ -206,7 +215,7 @@ export default function CategoryLayout({ data, cityId }: { data: Category;cityId
     return () => {
       cancelled = true;
     };
-  }, [data.id, refreshKey]);
+  }, [data.id, cityId, refreshKey]);
 
 
   /* =========================================
@@ -231,10 +240,22 @@ export default function CategoryLayout({ data, cityId }: { data: Category;cityId
   ];
 }, [listings]);
 
-  const specialtyOptions = useMemo(
-    () => (data.name ? [data.name] : []),
-    [data.name]
-  );
+  const specialtyOptions = useMemo(() => {
+  const subcats = new Map<string, string>();
+
+  listings.forEach((l) => {
+    const name = (l.sub_category_name ?? "").trim();
+    if (!name) return;
+    subcats.set(name, name);
+  });
+
+  return Array.from(subcats, ([value, label]) => ({ value, label }));
+}, [listings]);
+
+  // const specialtyOptions = useMemo(
+  //   () => (data.name ? [data.name] : []),
+  //   [data.name]
+  // );
 
   /* =========================================
      HANDLERS
@@ -255,6 +276,7 @@ export default function CategoryLayout({ data, cityId }: { data: Category;cityId
     setRating("all");
     setConsultationMode("all");
     setSortBy("popular");
+     setCurrentPage(1);
   };
 
   /* =========================================
@@ -281,7 +303,7 @@ export default function CategoryLayout({ data, cityId }: { data: Category;cityId
 
       const matchesSpecialty =
         selectedSpecialties.length === 0 ||
-        selectedSpecialties.includes(data.name);
+         selectedSpecialties.includes(c.sub_category_name ?? "");
 
       const matchesRating =
         rating === "all" ||
@@ -329,7 +351,7 @@ export default function CategoryLayout({ data, cityId }: { data: Category;cityId
 );
 useEffect(() => {
   setCurrentPage(1);
-}, [search, location]);
+}, [search, location, selectedSpecialties]);
   /* =========================================
      FILTER SIDEBAR
   ========================================= */
@@ -388,16 +410,16 @@ useEffect(() => {
         <div className="space-y-3">
           {specialtyOptions.map((specialty) => (
             <label
-              key={specialty}
+              key={specialty.value}
               className="flex cursor-pointer items-center gap-3 text-[14px] text-[#4B5568] transition hover:text-[#4e44e1]"
             >
               <input
                 type="checkbox"
-                checked={selectedSpecialties.includes(specialty)}
-                onChange={() => toggleSpecialty(specialty)}
+                checked={selectedSpecialties.includes(specialty.value)}
+                onChange={() => toggleSpecialty(specialty.value)}
                 className="h-4 w-4 shrink-0 cursor-pointer accent-[#4e44e1]"
               />
-              <span>{specialty}</span>
+              <span>{specialty.label}</span>
             </label>
           ))}
         </div>

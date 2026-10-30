@@ -15,6 +15,7 @@ interface Category extends RowDataPacket {
 interface Listing extends RowDataPacket {
   id: number | string;
   category_id: number;
+  sub_category_id: number;
   name: string;
   about: string;
   state: string;
